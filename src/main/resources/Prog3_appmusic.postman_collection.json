@@ -1,0 +1,29 @@
+{
+	"info": {
+		"_postman_id": "0925ecc6-fe22-444d-b178-ee6db9ace2d2",
+		"name": "Prog3_appmusic",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49312521",
+		"_collection_link": "https://juanfemon69-1302335.postman.co/workspace/Felipe-Workspace~c7b6e45e-83b3-4e2e-8e23-81c3eea40b4a/collection/49312521-0925ecc6-fe22-444d-b178-ee6db9ace2d2?action=share&source=collection_link&creator=49312521"
+	},
+	"item": [
+		{
+			"name": "Saludo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/prog3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"prog3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
