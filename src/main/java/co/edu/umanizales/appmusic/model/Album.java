@@ -6,6 +6,7 @@ import java.util.List;
 
 @Getter
 @Setter
+
 public class Album extends MultimediaContent {
     private Artist artist;
     private List<Song> songs;

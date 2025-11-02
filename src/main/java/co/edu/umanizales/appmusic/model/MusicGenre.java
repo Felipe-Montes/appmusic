@@ -1,6 +1,6 @@
 package co.edu.umanizales.appmusic.model;
 
-public enum Genre {
+public enum MusicGenre {
     ROCK,
     POPULAR,
     JAZZ,
