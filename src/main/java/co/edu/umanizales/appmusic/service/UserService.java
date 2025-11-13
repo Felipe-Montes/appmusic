@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,13 +18,13 @@ public class UserService {
         return users;
     }
 
-    public Optional<User> getUserById(String id) {
+    public User getUserById(String id) {
         for (User user : users) {
             if (user.getIdUser().equals(id)) {
-                return Optional.of(user);
+                return user;
             }
         }
-        return Optional.empty();
+        return null;
     }
 
     public void addUser(User user) {

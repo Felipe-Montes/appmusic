@@ -1,0 +1,539 @@
+{
+  "info": {
+    "name": "AppMusic API",
+    "description": "Colección de endpoints para la API de AppMusic",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Albums",
+      "item": [
+        {
+          "name": "Listar todos los álbumes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/albums",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["albums"]
+            },
+            "description": "Obtiene la lista de todos los álbumes"
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener álbum por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/albums/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["albums", "1"]
+            },
+            "description": "Obtiene un álbum específico por su ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Crear álbum",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"1\",\n  \"title\": \"Nombre del Álbum\",\n  \"duration\": 3600\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/albums",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["albums"]
+            },
+            "description": "Crea un nuevo álbum"
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar álbum",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/albums/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["albums", "1"]
+            },
+            "description": "Elimina un álbum específico"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Artists",
+      "item": [
+        {
+          "name": "Listar todos los artistas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/artists",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["artists"]
+            },
+            "description": "Obtiene la lista de todos los artistas"
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener artista por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/artists/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["artists", "1"]
+            },
+            "description": "Obtiene un artista específico por su ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Crear artista",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idArtist\": \"1\",\n  \"name\": \"Nombre del Artista\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/artists",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["artists"]
+            },
+            "description": "Crea un nuevo artista"
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar artista",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/artists/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["artists", "1"]
+            },
+            "description": "Elimina un artista específico"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Songs",
+      "item": [
+        {
+          "name": "Listar todas las canciones",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/songs",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["songs"]
+            },
+            "description": "Obtiene la lista de todas las canciones"
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener canción por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/songs/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["songs", "1"]
+            },
+            "description": "Obtiene una canción específica por su ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Crear canción",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"1\",\n  \"title\": \"Nombre de la Canción\",\n  \"duration\": 180,\n  \"musicGenre\": \"ROCK\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/songs",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["songs"]
+            },
+            "description": "Crea una nueva canción"
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar canción",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/songs/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["songs", "1"]
+            },
+            "description": "Elimina una canción específica"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Playlists",
+      "item": [
+        {
+          "name": "Listar todas las playlists",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/playlists",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["playlists"]
+            },
+            "description": "Obtiene la lista de todas las playlists"
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener playlist por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/playlists/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["playlists", "1"]
+            },
+            "description": "Obtiene una playlist específica por su ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Crear playlist",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idPlaylist\": \"1\",\n  \"name\": \"Nombre de la Playlist\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/playlists",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["playlists"]
+            },
+            "description": "Crea una nueva playlist"
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar playlist",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/playlists/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["playlists", "1"]
+            },
+            "description": "Elimina una playlist específica"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Listar todos los usuarios",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/users",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["users"]
+            },
+            "description": "Obtiene la lista de todos los usuarios"
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener usuario por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/users/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["users", "1"]
+            },
+            "description": "Obtiene un usuario específico por su ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Crear usuario",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idUser\": \"1\",\n  \"name\": \"Nombre del Usuario\",\n  \"email\": \"usuario@example.com\",\n  \"subscriptionType\": \"PREMIUM\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/users",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["users"]
+            },
+            "description": "Crea un nuevo usuario"
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar usuario",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idUser\": \"1\",\n  \"name\": \"Nombre Actualizado\",\n  \"email\": \"usuario@example.com\",\n  \"subscriptionType\": \"PREMIUM\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/users",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["users"]
+            },
+            "description": "Actualiza un usuario existente"
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar usuario",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/users/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["users", "1"]
+            },
+            "description": "Elimina un usuario específico"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Play History",
+      "item": [
+        {
+          "name": "Listar todo el historial de reproducción",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/play-history",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["play-history"]
+            },
+            "description": "Obtiene la lista de todo el historial de reproducción"
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener historial por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/play-history/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["play-history", "1"]
+            },
+            "description": "Obtiene un registro específico del historial por su ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Crear registro de historial",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idHistory\": \"1\",\n  \"userId\": \"1\",\n  \"songId\": \"1\",\n  \"playDate\": \"2024-01-01T10:00:00\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/play-history",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["play-history"]
+            },
+            "description": "Crea un nuevo registro en el historial de reproducción"
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar registro de historial",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/play-history/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["play-history", "1"]
+            },
+            "description": "Elimina un registro específico del historial"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Multimedia Content",
+      "item": [
+        {
+          "name": "Listar todo el contenido multimedia",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/contents",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["contents"]
+            },
+            "description": "Obtiene la lista de todo el contenido multimedia"
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener contenido multimedia por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/contents/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["contents", "1"]
+            },
+            "description": "Obtiene un contenido multimedia específico por su ID"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

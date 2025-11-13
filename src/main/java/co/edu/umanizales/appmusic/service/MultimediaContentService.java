@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,13 +16,13 @@ public class MultimediaContentService {
         return contents;
     }
 
-    public Optional<MultimediaContent> findById(String id) {
+    public MultimediaContent findById(String id) {
         for (MultimediaContent content : contents) {
             if (content.getId().equals(id)) {
-                return Optional.of(content);
+                return content;
             }
         }
-        return Optional.empty();
+        return null;
     }
 
     public void save(MultimediaContent content) {

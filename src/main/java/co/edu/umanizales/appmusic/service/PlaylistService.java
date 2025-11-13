@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,13 +18,13 @@ public class PlaylistService {
         return playlists;
     }
 
-    public Optional<Playlist> getPlaylistById(String id) {
+    public Playlist getPlaylistById(String id) {
         for (Playlist playlist : playlists) {
             if (playlist.getIdPlaylist().equals(id)) {
-                return Optional.of(playlist);
+                return playlist;
             }
         }
-        return Optional.empty();
+        return null;
     }
 
     public void addPlaylist(Playlist playlist) {

@@ -21,9 +21,12 @@ public class AlbumController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Album> buscarPorId(@PathVariable String id) {
-        return albumService.getAlbumById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Album album = albumService.getAlbumById(id);
+        if (album != null) {
+            return ResponseEntity.ok(album);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping

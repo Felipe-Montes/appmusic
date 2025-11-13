@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PlayHistoryService {
@@ -15,13 +14,13 @@ public class PlayHistoryService {
         return histories;
     }
 
-    public Optional<PlayHistory> findById(String id) {
+    public PlayHistory findById(String id) {
         for (PlayHistory history : histories) {
             if (history.getIdHistory().equals(id)) {
-                return Optional.of(history);
+                return history;
             }
         }
-        return Optional.empty();
+        return null;
     }
 
     public void save(PlayHistory history) {

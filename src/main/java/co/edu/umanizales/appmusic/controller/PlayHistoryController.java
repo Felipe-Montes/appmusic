@@ -22,9 +22,12 @@ public class PlayHistoryController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PlayHistory> buscarPorId(@PathVariable String id) {
-        return playHistoryService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        PlayHistory history = playHistoryService.findById(id);
+        if (history != null) {
+            return ResponseEntity.ok(history);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping

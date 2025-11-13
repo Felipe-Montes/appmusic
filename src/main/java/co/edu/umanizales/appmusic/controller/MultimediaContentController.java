@@ -22,8 +22,11 @@ public class MultimediaContentController {
 
     @GetMapping("/{id}")
     public ResponseEntity<MultimediaContent> buscarPorId(@PathVariable String id) {
-        return contentService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        MultimediaContent content = contentService.findById(id);
+        if (content != null) {
+            return ResponseEntity.ok(content);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

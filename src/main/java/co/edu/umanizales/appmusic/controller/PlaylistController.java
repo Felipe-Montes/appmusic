@@ -21,9 +21,12 @@ public class PlaylistController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Playlist> buscarPorId(@PathVariable String id) {
-        return playlistService.getPlaylistById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Playlist playlist = playlistService.getPlaylistById(id);
+        if (playlist != null) {
+            return ResponseEntity.ok(playlist);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping

@@ -21,9 +21,12 @@ public class ArtistController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Artist> buscarPorId(@PathVariable String id) {
-        return artistService.getArtistById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Artist artist = artistService.getArtistById(id);
+        if (artist != null) {
+            return ResponseEntity.ok(artist);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
