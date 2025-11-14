@@ -3,6 +3,7 @@ package co.edu.umanizales.appmusic.service;
 import co.edu.umanizales.appmusic.model.Artist;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ArtistService {
     private final CsvService csvService;
-    private final String filePath = "data/artists.csv";
+    @Value("${storage.artists.path}")
+    private String filePath;
     private final List<Artist> artists = new ArrayList<>();
 
     public List<Artist> getAllArtists() {
@@ -29,6 +31,16 @@ public class ArtistService {
 
     public void addArtist(Artist artist) {
         artists.add(artist);
+        saveArtistsToCsv();
+    }
+
+    public void updateArtist(Artist artist) {
+        for (Artist existing : artists) {
+            if (existing.getIdArtist().equals(artist.getIdArtist())) {
+                existing.setName(artist.getName());
+                break;
+            }
+        }
         saveArtistsToCsv();
     }
 

@@ -3,6 +3,7 @@ package co.edu.umanizales.appmusic.service;
 import co.edu.umanizales.appmusic.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
     private final CsvService csvService;
-    private final String filePath = "data/users.csv";
+    @Value("${storage.users.path}")
+    private String filePath;
     private final List<User> users = new ArrayList<>();
 
     public List<User> getAllUsers() {

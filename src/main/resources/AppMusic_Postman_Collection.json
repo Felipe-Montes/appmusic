@@ -66,6 +66,31 @@
           "response": []
         },
         {
+          "name": "Actualizar álbum",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"1\",\n  \"title\": \"Nombre del Álbum (Actualizado)\",\n  \"duration\": 3650\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/albums",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["albums"]
+            },
+            "description": "Actualiza un álbum existente"
+          },
+          "response": []
+        },
+        {
           "name": "Eliminar álbum",
           "request": {
             "method": "DELETE",
@@ -140,6 +165,31 @@
               "path": ["artists"]
             },
             "description": "Crea un nuevo artista"
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar artista",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idArtist\": \"1\",\n  \"name\": \"Nombre del Artista (Actualizado)\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/artists",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["artists"]
+            },
+            "description": "Actualiza un artista existente"
           },
           "response": []
         },
@@ -222,6 +272,31 @@
           "response": []
         },
         {
+          "name": "Actualizar canción",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"1\",\n  \"title\": \"Nombre de la Canción (Edit)\",\n  \"duration\": 185,\n  \"musicGenre\": \"ROCK\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/songs",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["songs"]
+            },
+            "description": "Actualiza una canción existente"
+          },
+          "response": []
+        },
+        {
           "name": "Eliminar canción",
           "request": {
             "method": "DELETE",
@@ -296,6 +371,31 @@
               "path": ["playlists"]
             },
             "description": "Crea una nueva playlist"
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar playlist",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idPlaylist\": \"1\",\n  \"name\": \"Nombre de la Playlist (Actualizada)\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/playlists",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["playlists"]
+            },
+            "description": "Actualiza una playlist existente"
           },
           "response": []
         },

@@ -23,13 +23,37 @@ public class CsvService {
     }
 
     public void writeCsv(String filePath, List<String[]> data) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
-            for (String[] line : data) {
-                bw.write(String.join(",", line));
-                bw.newLine();
+        try {
+            File target = new File(filePath);
+            File parent = target.getParentFile();
+            if (parent != null && !parent.exists()) {
+                parent.mkdirs();
+            }
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(target))) {
+                for (String[] line : data) {
+                    bw.write(String.join(",", line));
+                    bw.newLine();
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean updateCsvRow(String filePath, int keyColumnIndex, String keyValue, String[] newRow) {
+        List<String[]> rows = readCsv(filePath);
+        boolean updated = false;
+        for (int i = 0; i < rows.size(); i++) {
+            String[] row = rows.get(i);
+            if (keyColumnIndex >= 0 && keyColumnIndex < row.length && row[keyColumnIndex].equals(keyValue)) {
+                rows.set(i, newRow);
+                updated = true;
+                break;
+            }
+        }
+        if (updated) {
+            writeCsv(filePath, rows);
+        }
+        return updated;
     }
 }

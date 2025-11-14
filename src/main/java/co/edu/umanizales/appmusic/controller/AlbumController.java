@@ -35,6 +35,12 @@ public class AlbumController {
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping
+    public ResponseEntity<Void> actualizar(@RequestBody Album album) {
+        albumService.updateAlbum(album);
+        return ResponseEntity.ok().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable String id) {
         albumService.deleteAlbum(id);

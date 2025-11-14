@@ -35,6 +35,12 @@ public class PlaylistController {
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping
+    public ResponseEntity<Void> actualizar(@RequestBody Playlist playlist) {
+        playlistService.updatePlaylist(playlist);
+        return ResponseEntity.ok().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable String id) {
         playlistService.deletePlaylist(id);

@@ -35,6 +35,12 @@ public class SongController {
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping
+    public ResponseEntity<Void> actualizar(@RequestBody Song song) {
+        songService.updateSong(song);
+        return ResponseEntity.ok().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable String id) {
         songService.deleteSong(id);
