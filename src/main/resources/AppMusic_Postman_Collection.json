@@ -52,7 +52,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"id\": \"1\",\n  \"title\": \"Nombre del Álbum\",\n  \"duration\": 3600\n}"
+              "raw": "{\n  \"id\": \"1\",\n  \"title\": \"Nombre del Álbum\",\n  \"duration\": 3600,\n  \"artist\": {\n    \"idArtist\": \"1\"\n  }\n}"
             },
             "url": {
               "raw": "http://localhost:8080/albums",

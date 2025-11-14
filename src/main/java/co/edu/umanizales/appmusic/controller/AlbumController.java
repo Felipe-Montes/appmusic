@@ -31,6 +31,9 @@ public class AlbumController {
 
     @PostMapping
     public ResponseEntity<Void> crear(@RequestBody Album album) {
+        if (album.getArtist() == null || album.getArtist().getIdArtist() == null || album.getArtist().getIdArtist().isBlank()) {
+            return ResponseEntity.badRequest().build();
+        }
         albumService.addAlbum(album);
         return ResponseEntity.ok().build();
     }

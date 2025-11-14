@@ -59,10 +59,12 @@ public class AlbumService {
         List<String[]> data = new ArrayList<>();
         for (Album a : albums) {
             data.add(new String[]{
-                    a.getId(), a.getTitle(), String.valueOf(a.getDuration())
+                    a.getId(),
+                    a.getTitle(),
+                    String.valueOf(a.getDuration()),
+                    (a.getArtist() != null && a.getArtist().getIdArtist() != null) ? a.getArtist().getIdArtist() : ""
             });
         }
         csvService.writeCsv(filePath, data);
     }
-
 }
