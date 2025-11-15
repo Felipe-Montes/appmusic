@@ -1,9 +1,11 @@
 package co.edu.umanizales.appmusic.service;
 
 import co.edu.umanizales.appmusic.model.Artist;
+import co.edu.umanizales.appmusic.exception.DuplicateResourceException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Value;
+import jakarta.annotation.PostConstruct;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,23 @@ public class ArtistService {
     @Value("${storage.artists.path}")
     private String filePath;
     private final List<Artist> artists = new ArrayList<>();
+
+    @PostConstruct
+    void loadArtistsFromCsv() {
+        List<String[]> rows = csvService.readCsv(filePath);
+        artists.clear();
+        for (String[] row : rows) {
+            if (row == null || row.length < 2) {
+                continue;
+            }
+            String id = row[0] != null ? row[0].trim() : "";
+            String name = row[1] != null ? row[1].trim() : "";
+            if (id.isEmpty() || name.isEmpty()) {
+                continue;
+            }
+            artists.add(new Artist(id, name, null, null));
+        }
+    }
 
     public List<Artist> getAllArtists() {
         return artists;
@@ -30,6 +49,18 @@ public class ArtistService {
     }
 
     public void addArtist(Artist artist) {
+        // Validación de unicidad por id
+        for (Artist existing : artists) {
+            if (existing.getIdArtist().equals(artist.getIdArtist())) {
+                throw new DuplicateResourceException("Ya existe un artista con el mismo id: " + artist.getIdArtist());
+            }
+        }
+        // Validación de unicidad por nombre
+        for (Artist existing : artists) {
+            if (existing.getName().equalsIgnoreCase(artist.getName())) {
+                throw new DuplicateResourceException("Ya existe un artista con el mismo nombre: " + artist.getName());
+            }
+        }
         artists.add(artist);
         saveArtistsToCsv();
     }
