@@ -6,6 +6,7 @@ import co.edu.umanizales.appmusic.service.ArtistService;
 import co.edu.umanizales.appmusic.service.SongService;
 import co.edu.umanizales.appmusic.service.UserService;
 import co.edu.umanizales.appmusic.service.PlaylistService;
+import co.edu.umanizales.appmusic.service.PaymentService;
 import co.edu.umanizales.appmusic.exception.DuplicateResourceException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/ui")
@@ -28,7 +30,14 @@ public class WebController {
     private final SongService songService;
     private final UserService userService;
     private final PlaylistService playlistService;
+    private final PaymentService paymentService;
 
+    /**
+     * Página de inicio del GUI.
+     * Agrega contadores de artistas, álbumes y canciones para mostrar.
+     * @param model modelo de la vista
+     * @return nombre de la plantilla Thymeleaf "index"
+     */
     @GetMapping({"", "/", "/index"})
     public String index(Model model) {
         model.addAttribute("artistsCount", artistService.getAllArtists().size());
@@ -38,12 +47,21 @@ public class WebController {
     }
 
     // ARTISTS
+    /**
+     * Vista de listado y creación de artistas.
+     * @param model modelo con la lista de artistas
+     * @return plantilla "artists"
+     */
     @GetMapping("/artists")
     public String artists(Model model) {
         model.addAttribute("artists", artistService.getAllArtists());
         return "artists";
     }
 
+    /**
+     * Crea un artista a partir de los parámetros del formulario.
+     * En caso de duplicados, redirige con mensaje de error.
+     */
     @PostMapping("/artists")
     public String createArtist(
             @RequestParam String idArtist,
@@ -59,6 +77,11 @@ public class WebController {
     }
 
     // ALBUMS
+    /**
+     * Vista de listado y creación de álbumes. Incluye artistas para el selector.
+     * @param model modelo con álbumes y artistas
+     * @return plantilla "albums"
+     */
     @GetMapping("/albums")
     public String albums(Model model) {
         model.addAttribute("albums", albumService.getAllAlbums());
@@ -66,6 +89,10 @@ public class WebController {
         return "albums";
     }
 
+    /**
+     * Crea un álbum asociado opcionalmente a un artista.
+     * Maneja conflicto por id/título duplicado mediante redirección con error.
+     */
     @PostMapping("/albums")
     public String createAlbum(
             @RequestParam String id,
@@ -84,6 +111,9 @@ public class WebController {
     }
 
     // SONGS
+    /**
+     * Vista de listado y creación de canciones. Incluye artistas, álbumes y géneros.
+     */
     @GetMapping("/songs")
     public String songs(Model model) {
         model.addAttribute("songs", songService.getAllSongs());
@@ -93,6 +123,10 @@ public class WebController {
         return "songs";
     }
 
+    /**
+     * Crea una canción con género y relaciones opcionales a artista y álbum.
+     * Valida unicidad por id y redirige con mensaje en caso de duplicado.
+     */
     @PostMapping("/songs")
     public String createSong(
             @RequestParam String id,
@@ -115,6 +149,9 @@ public class WebController {
     }
 
     // USERS
+    /**
+     * Vista de usuarios con listado y creación.
+     */
     @GetMapping("/users")
     public String users(Model model) {
         model.addAttribute("users", userService.getAllUsers());
@@ -122,16 +159,35 @@ public class WebController {
         return "users";
     }
 
+    /**
+     * Crea un usuario validando unicidad de id y email.
+     */
     @PostMapping("/users")
     public String createUser(
             @RequestParam String idUser,
             @RequestParam String name,
             @RequestParam String email,
-            @RequestParam String subscriptionType
+            @RequestParam String subscriptionType,
+            @RequestParam(required = false) String idPayment,
+            @RequestParam(required = false) Double amount,
+            @RequestParam(required = false) String paymentDate
     ) {
         SubscriptionType st = SubscriptionType.valueOf(subscriptionType);
         try {
             userService.addUser(new User(idUser, name, email, st, null));
+            // Si es un plan pago, exigir y registrar el pago
+            if (st == SubscriptionType.PREMIUM || st == SubscriptionType.FAMILY) {
+                if (idPayment == null || idPayment.isBlank() || amount == null || amount <= 0 || paymentDate == null || paymentDate.isBlank()) {
+                    String msg = URLEncoder.encode("Se requieren datos de pago para planes PREMIUM o FAMILY", StandardCharsets.UTF_8);
+                    return "redirect:/ui/users?error=" + msg;
+                }
+                LocalDate date;
+                try { date = LocalDate.parse(paymentDate); } catch (Exception e) {
+                    String msg = URLEncoder.encode("Fecha de pago inválida (use AAAA-MM-DD)", StandardCharsets.UTF_8);
+                    return "redirect:/ui/users?error=" + msg;
+                }
+                paymentService.addPayment(new Payment(idPayment, amount, date, userService.getUserById(idUser)));
+            }
             return "redirect:/ui/users";
         } catch (DuplicateResourceException ex) {
             String msg = URLEncoder.encode(ex.getMessage(), StandardCharsets.UTF_8);
@@ -140,6 +196,10 @@ public class WebController {
     }
 
     // PLAYLISTS
+    /**
+     * Vista de playlists con listado y formularios de crear/actualizar.
+     * Carga usuarios y canciones para selección.
+     */
     @GetMapping("/playlists")
     public String playlists(Model model) {
         model.addAttribute("playlists", playlistService.getAllPlaylists());
@@ -148,6 +208,10 @@ public class WebController {
         return "playlists";
     }
 
+    /**
+     * Crea una playlist con usuario opcional y múltiples canciones.
+     * Persiste y maneja duplicados por id/nombre.
+     */
     @PostMapping("/playlists")
     public String createPlaylist(
             @RequestParam String idPlaylist,
@@ -173,6 +237,9 @@ public class WebController {
         }
     }
 
+    /**
+     * Actualiza una playlist existente (nombre, usuario y canciones).
+     */
     @PostMapping("/playlists/update")
     public String updatePlaylist(
             @RequestParam String idPlaylist,
@@ -198,6 +265,9 @@ public class WebController {
         }
     }
 
+    /**
+     * Elimina una playlist por su identificador.
+     */
     @PostMapping("/playlists/delete")
     public String deletePlaylist(@RequestParam String idPlaylist) {
         playlistService.deletePlaylist(idPlaylist);

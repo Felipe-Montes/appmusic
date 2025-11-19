@@ -57,16 +57,45 @@
 
     <div class="panel">
       <h3 style="margin-top:0">Crear usuario</h3>
-      <form class="form" action="/ui/users" method="post">
+      <form class="form" action="/ui/users" method="post" id="userForm">
         <input class="input" name="idUser" placeholder="ID" required />
         <input class="input" name="name" placeholder="Nombre" required />
         <input class="input" name="email" placeholder="Email" type="email" required />
-        <select class="select" name="subscriptionType" required>
+        <select class="select" name="subscriptionType" id="subscriptionType" required>
           <option value="">-- Suscripción --</option>
           <option th:each="st : ${subscriptionTypes}" th:value="${st}" th:text="${st}"></option>
         </select>
+
+        <div id="paymentFields" style="display:none; grid-column: 1 / -1;">
+          <div class="form" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+            <input class="input" name="idPayment" id="idPayment" placeholder="ID de pago" />
+            <input class="input" name="amount" id="amount" placeholder="Monto" type="number" step="0.01" min="0.01" />
+            <input class="input" name="paymentDate" id="paymentDate" placeholder="Fecha de pago" type="date" />
+          </div>
+          <p class="helper">Para planes PREMIUM o FAMILY se requieren datos de pago.</p>
+        </div>
+
         <button class="button primary" type="submit">Guardar</button>
       </form>
+      <script>
+        (function(){
+          var sub = document.getElementById('subscriptionType');
+          var box = document.getElementById('paymentFields');
+          var idp = document.getElementById('idPayment');
+          var amt = document.getElementById('amount');
+          var dt  = document.getElementById('paymentDate');
+          function togglePayment(){
+            var v = sub && sub.value ? sub.value.toUpperCase() : '';
+            var needs = (v === 'PREMIUM' || v === 'FAMILY');
+            box.style.display = needs ? 'block' : 'none';
+            idp.required = needs; amt.required = needs; dt.required = needs;
+          }
+          if (sub) {
+            sub.addEventListener('change', togglePayment);
+            togglePayment();
+          }
+        })();
+      </script>
     </div>
   </main>
 
