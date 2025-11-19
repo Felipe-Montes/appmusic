@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.util.HashMap;
 import java.util.Map;
 
+// Manejador global de excepciones para la capa web (aplica a todos los controladores)
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    // Maneja errores de validación (@Valid). Construye un cuerpo con mensajes por campo y devuelve 400 Bad Request
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleValidationErrors(MethodArgumentNotValidException ex) {
         Map<String, Object> body = new HashMap<>();
@@ -26,6 +28,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }
 
+    // Maneja cualquier excepción no controlada. Devuelve 500 Internal Server Error con el detalle del error
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGeneric(Exception ex) {
         Map<String, Object> body = new HashMap<>();
@@ -34,6 +37,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(body);
     }
 
+    // Maneja conflictos por recursos duplicados. Devuelve 409 Conflict con el mensaje específico
     @ExceptionHandler(DuplicateResourceException.class)
     public ResponseEntity<String> handleDuplicate(DuplicateResourceException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
