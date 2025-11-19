@@ -40,6 +40,12 @@
 			<artifactId>spring-boot-starter-web-services</artifactId>
 		</dependency>
 
+		<!-- Thymeleaf for simple server-side rendered GUI -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
 		<!-- Bean Validation for @Valid -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

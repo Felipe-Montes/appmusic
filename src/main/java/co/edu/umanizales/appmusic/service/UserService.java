@@ -1,9 +1,12 @@
 package co.edu.umanizales.appmusic.service;
 
 import co.edu.umanizales.appmusic.model.User;
+import co.edu.umanizales.appmusic.model.SubscriptionType;
+import co.edu.umanizales.appmusic.exception.DuplicateResourceException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Value;
+import jakarta.annotation.PostConstruct;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +18,27 @@ public class UserService {
     @Value("${storage.users.path}")
     private String filePath;
     private final List<User> users = new ArrayList<>();
+
+    @PostConstruct
+    void loadUsersFromCsv() {
+        List<String[]> rows = csvService.readCsv(filePath);
+        users.clear();
+        for (String[] row : rows) {
+            if (row == null || row.length < 4) {
+                continue;
+            }
+            String id = row[0] != null ? row[0].trim() : "";
+            String name = row[1] != null ? row[1].trim() : "";
+            String email = row[2] != null ? row[2].trim() : "";
+            String sub = row[3] != null ? row[3].trim() : "FREE";
+            if (id.isEmpty() || name.isEmpty()) {
+                continue;
+            }
+            SubscriptionType st;
+            try { st = SubscriptionType.valueOf(sub); } catch (Exception e) { st = SubscriptionType.FREE; }
+            users.add(new User(id, name, email, st, null));
+        }
+    }
 
     public List<User> getAllUsers() {
         return users;
@@ -30,6 +54,20 @@ public class UserService {
     }
 
     public void addUser(User user) {
+        // Validación de unicidad por id
+        for (User existing : users) {
+            if (existing.getIdUser().equals(user.getIdUser())) {
+                throw new DuplicateResourceException("Ya existe un usuario con el mismo id: " + user.getIdUser());
+            }
+        }
+        // Validación opcional por email (si no está vacío)
+        if (user.getEmail() != null && !user.getEmail().isBlank()) {
+            for (User existing : users) {
+                if (user.getEmail().equalsIgnoreCase(existing.getEmail())) {
+                    throw new DuplicateResourceException("Ya existe un usuario con el mismo email: " + user.getEmail());
+                }
+            }
+        }
         users.add(user);
         saveUsersToCsv();
     }
