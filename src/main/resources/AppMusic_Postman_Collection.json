@@ -14,10 +14,8 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/albums",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
+              "raw": "{{baseUrl}}/albums",
+              "host": ["{{baseUrl}}"],
               "path": ["albums"]
             },
             "description": "Obtiene la lista de todos los álbumes"
@@ -30,11 +28,10 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/albums/1",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
-              "path": ["albums", "1"]
+              "raw": "{{baseUrl}}/albums/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["albums", ":id"],
+              "variable": [{"key": "id", "value": "ALB001"}]
             },
             "description": "Obtiene un álbum específico por su ID"
           },
@@ -52,13 +49,11 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"id\": \"1\",\n  \"title\": \"Nombre del Álbum\",\n  \"duration\": 3600,\n  \"artist\": {\n    \"idArtist\": \"1\"\n  }\n}"
+              "raw": "{\n  \"id\": \"ALB001\",\n  \"title\": \"Nuevo Álbum\",\n  \"duration\": 3600,\n  \"artist\": {\n    \"idArtist\": \"ART001\"\n  }\n}"
             },
             "url": {
-              "raw": "http://localhost:8080/albums",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
+              "raw": "{{baseUrl}}/albums",
+              "host": ["{{baseUrl}}"],
               "path": ["albums"]
             },
             "description": "Crea un nuevo álbum"
@@ -77,13 +72,11 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"id\": \"1\",\n  \"title\": \"Nombre del Álbum (Actualizado)\",\n  \"duration\": 3650\n}"
+              "raw": "{\n  \"id\": \"ALB001\",\n  \"title\": \"Álbum Actualizado\",\n  \"duration\": 3800,\n  \"artist\": {\n    \"idArtist\": \"ART001\"\n  }\n}"
             },
             "url": {
-              "raw": "http://localhost:8080/albums",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
+              "raw": "{{baseUrl}}/albums",
+              "host": ["{{baseUrl}}"],
               "path": ["albums"]
             },
             "description": "Actualiza un álbum existente"
@@ -96,13 +89,12 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/albums/1",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
-              "path": ["albums", "1"]
+              "raw": "{{baseUrl}}/albums/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["albums", ":id"],
+              "variable": [{"key": "id", "value": "ALB001"}]
             },
-            "description": "Elimina un álbum específico"
+            "description": "Elimina un álbum por su ID"
           },
           "response": []
         }
@@ -117,10 +109,8 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/artists",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
+              "raw": "{{baseUrl}}/artists",
+              "host": ["{{baseUrl}}"],
               "path": ["artists"]
             },
             "description": "Obtiene la lista de todos los artistas"
@@ -133,11 +123,10 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/artists/1",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
-              "path": ["artists", "1"]
+              "raw": "{{baseUrl}}/artists/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["artists", ":id"],
+              "variable": [{"key": "id", "value": "ART001"}]
             },
             "description": "Obtiene un artista específico por su ID"
           },
@@ -155,13 +144,11 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"idArtist\": \"1\",\n  \"name\": \"Nombre del Artista\"\n}"
+              "raw": "{\n  \"idArtist\": \"ART001\",\n  \"name\": \"Nuevo Artista\"\n}"
             },
             "url": {
-              "raw": "http://localhost:8080/artists",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
+              "raw": "{{baseUrl}}/artists",
+              "host": ["{{baseUrl}}"],
               "path": ["artists"]
             },
             "description": "Crea un nuevo artista"
@@ -180,13 +167,11 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"idArtist\": \"1\",\n  \"name\": \"Nombre del Artista (Actualizado)\"\n}"
+              "raw": "{\n  \"idArtist\": \"ART001\",\n  \"name\": \"Artista Actualizado\"\n}"
             },
             "url": {
-              "raw": "http://localhost:8080/artists",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
+              "raw": "{{baseUrl}}/artists",
+              "host": ["{{baseUrl}}"],
               "path": ["artists"]
             },
             "description": "Actualiza un artista existente"
@@ -199,13 +184,12 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/artists/1",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
-              "path": ["artists", "1"]
+              "raw": "{{baseUrl}}/artists/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["artists", ":id"],
+              "variable": [{"key": "id", "value": "ART001"}]
             },
-            "description": "Elimina un artista específico"
+            "description": "Elimina un artista por su ID"
           },
           "response": []
         }
@@ -220,10 +204,8 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/songs",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
+              "raw": "{{baseUrl}}/songs",
+              "host": ["{{baseUrl}}"],
               "path": ["songs"]
             },
             "description": "Obtiene la lista de todas las canciones"
@@ -236,11 +218,10 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/songs/1",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
-              "path": ["songs", "1"]
+              "raw": "{{baseUrl}}/songs/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["songs", ":id"],
+              "variable": [{"key": "id", "value": "SNG001"}]
             },
             "description": "Obtiene una canción específica por su ID"
           },
@@ -258,13 +239,11 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"id\": \"1\",\n  \"title\": \"Nombre de la Canción\",\n  \"duration\": 180,\n  \"musicGenre\": \"ROCK\"\n}"
+              "raw": "{\n  \"id\": \"SNG001\",\n  \"title\": \"Nueva Canción\",\n  \"duration\": 240,\n  \"genre\": \"POP\",\n  \"artist\": {\n    \"idArtist\": \"ART001\"\n  },\n  \"album\": {\n    \"id\": \"ALB001\"\n  }\n}"
             },
             "url": {
-              "raw": "http://localhost:8080/songs",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
+              "raw": "{{baseUrl}}/songs",
+              "host": ["{{baseUrl}}"],
               "path": ["songs"]
             },
             "description": "Crea una nueva canción"
@@ -283,13 +262,11 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"id\": \"1\",\n  \"title\": \"Nombre de la Canción (Edit)\",\n  \"duration\": 185,\n  \"musicGenre\": \"ROCK\"\n}"
+              "raw": "{\n  \"id\": \"SNG001\",\n  \"title\": \"Canción Actualizada\",\n  \"duration\": 250,\n  \"genre\": \"ROCK\",\n  \"artist\": {\n    \"idArtist\": \"ART001\"\n  },\n  \"album\": {\n    \"id\": \"ALB001\"\n  }\n}"
             },
             "url": {
-              "raw": "http://localhost:8080/songs",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
+              "raw": "{{baseUrl}}/songs",
+              "host": ["{{baseUrl}}"],
               "path": ["songs"]
             },
             "description": "Actualiza una canción existente"
@@ -302,13 +279,12 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/songs/1",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
-              "path": ["songs", "1"]
+              "raw": "{{baseUrl}}/songs/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["songs", ":id"],
+              "variable": [{"key": "id", "value": "SNG001"}]
             },
-            "description": "Elimina una canción específica"
+            "description": "Elimina una canción por su ID"
           },
           "response": []
         }
@@ -323,10 +299,8 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/playlists",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
+              "raw": "{{baseUrl}}/playlists",
+              "host": ["{{baseUrl}}"],
               "path": ["playlists"]
             },
             "description": "Obtiene la lista de todas las playlists"
@@ -339,11 +313,10 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/playlists/1",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
-              "path": ["playlists", "1"]
+              "raw": "{{baseUrl}}/playlists/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["playlists", ":id"],
+              "variable": [{"key": "id", "value": "PLY001"}]
             },
             "description": "Obtiene una playlist específica por su ID"
           },
@@ -361,13 +334,11 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"idPlaylist\": \"1\",\n  \"name\": \"Nombre de la Playlist\"\n}"
+              "raw": "{\n  \"id\": \"PLY001\",\n  \"name\": \"Mi Playlist\",\n  \"user\": {\n    \"id\": \"USR001\"\n  },\n  \"songs\": [\n    {\n      \"id\": \"SNG001\"\n    },\n    {\n      \"id\": \"SNG002\"\n    }\n  ]\n}"
             },
             "url": {
-              "raw": "http://localhost:8080/playlists",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
+              "raw": "{{baseUrl}}/playlists",
+              "host": ["{{baseUrl}}"],
               "path": ["playlists"]
             },
             "description": "Crea una nueva playlist"
@@ -386,13 +357,11 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"idPlaylist\": \"1\",\n  \"name\": \"Nombre de la Playlist (Actualizada)\"\n}"
+              "raw": "{\n  \"id\": \"PLY001\",\n  \"name\": \"Mi Playlist Actualizada\",\n  \"user\": {\n    \"id\": \"USR001\"\n  },\n  \"songs\": [\n    {\n      \"id\": \"SNG001\"\n    },\n    {\n      \"id\": \"SNG003\"\n    }\n  ]\n}"
             },
             "url": {
-              "raw": "http://localhost:8080/playlists",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
+              "raw": "{{baseUrl}}/playlists",
+              "host": ["{{baseUrl}}"],
               "path": ["playlists"]
             },
             "description": "Actualiza una playlist existente"
@@ -405,13 +374,12 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/playlists/1",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
-              "path": ["playlists", "1"]
+              "raw": "{{baseUrl}}/playlists/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["playlists", ":id"],
+              "variable": [{"key": "id", "value": "PLY001"}]
             },
-            "description": "Elimina una playlist específica"
+            "description": "Elimina una playlist por su ID"
           },
           "response": []
         }
@@ -426,10 +394,8 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/users",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
+              "raw": "{{baseUrl}}/users",
+              "host": ["{{baseUrl}}"],
               "path": ["users"]
             },
             "description": "Obtiene la lista de todos los usuarios"
@@ -442,11 +408,10 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/users/1",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
-              "path": ["users", "1"]
+              "raw": "{{baseUrl}}/users/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", ":id"],
+              "variable": [{"key": "id", "value": "USR001"}]
             },
             "description": "Obtiene un usuario específico por su ID"
           },
@@ -464,13 +429,11 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"idUser\": \"1\",\n  \"name\": \"Nombre del Usuario\",\n  \"email\": \"usuario@example.com\",\n  \"subscriptionType\": \"PREMIUM\"\n}"
+              "raw": "{\n  \"id\": \"USR001\",\n  \"name\": \"Nuevo Usuario\",\n  \"email\": \"usuario@example.com\",\n  \"subscriptionType\": \"PREMIUM\"\n}"
             },
             "url": {
-              "raw": "http://localhost:8080/users",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
+              "raw": "{{baseUrl}}/users",
+              "host": ["{{baseUrl}}"],
               "path": ["users"]
             },
             "description": "Crea un nuevo usuario"
@@ -489,13 +452,11 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"idUser\": \"1\",\n  \"name\": \"Nombre Actualizado\",\n  \"email\": \"usuario@example.com\",\n  \"subscriptionType\": \"PREMIUM\"\n}"
+              "raw": "{\n  \"id\": \"USR001\",\n  \"name\": \"Usuario Actualizado\",\n  \"email\": \"usuario.actualizado@example.com\",\n  \"subscriptionType\": \"FREE\"\n}"
             },
             "url": {
-              "raw": "http://localhost:8080/users",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
+              "raw": "{{baseUrl}}/users",
+              "host": ["{{baseUrl}}"],
               "path": ["users"]
             },
             "description": "Actualiza un usuario existente"
@@ -508,13 +469,12 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/users/1",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
-              "path": ["users", "1"]
+              "raw": "{{baseUrl}}/users/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", ":id"],
+              "variable": [{"key": "id", "value": "USR001"}]
             },
-            "description": "Elimina un usuario específico"
+            "description": "Elimina un usuario por su ID"
           },
           "response": []
         }
@@ -529,34 +489,31 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/play-history",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
+              "raw": "{{baseUrl}}/play-history",
+              "host": ["{{baseUrl}}"],
               "path": ["play-history"]
             },
-            "description": "Obtiene la lista de todo el historial de reproducción"
+            "description": "Obtiene todo el historial de reproducción"
           },
           "response": []
         },
         {
-          "name": "Obtener historial por ID",
+          "name": "Obtener registro de historial por ID",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/play-history/1",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
-              "path": ["play-history", "1"]
+              "raw": "{{baseUrl}}/play-history/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["play-history", ":id"],
+              "variable": [{"key": "id", "value": "HIS001"}]
             },
             "description": "Obtiene un registro específico del historial por su ID"
           },
           "response": []
         },
         {
-          "name": "Crear registro de historial",
+          "name": "Agregar registro al historial",
           "request": {
             "method": "POST",
             "header": [
@@ -567,53 +524,48 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"idHistory\": \"1\",\n  \"userId\": \"1\",\n  \"songId\": \"1\",\n  \"playDate\": \"2024-01-01T10:00:00\"\n}"
+              "raw": "{\n  \"id\": \"HIS001\",\n  \"user\": {\n    \"id\": \"USR001\"\n  },\n  \"song\": {\n    \"id\": \"SNG001\"\n  },\n  \"playedAt\": \"2024-01-01T12:00:00Z\"\n}"
             },
             "url": {
-              "raw": "http://localhost:8080/play-history",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
+              "raw": "{{baseUrl}}/play-history",
+              "host": ["{{baseUrl}}"],
               "path": ["play-history"]
             },
-            "description": "Crea un nuevo registro en el historial de reproducción"
+            "description": "Agrega un nuevo registro al historial de reproducción"
           },
           "response": []
         },
         {
-          "name": "Eliminar registro de historial",
+          "name": "Eliminar registro del historial",
           "request": {
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/play-history/1",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
-              "path": ["play-history", "1"]
+              "raw": "{{baseUrl}}/play-history/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["play-history", ":id"],
+              "variable": [{"key": "id", "value": "HIS001"}]
             },
-            "description": "Elimina un registro específico del historial"
+            "description": "Elimina un registro del historial por su ID"
           },
           "response": []
         }
       ]
     },
     {
-      "name": "Multimedia Content",
+      "name": "Multimedia Contents",
       "item": [
         {
-          "name": "Listar todo el contenido multimedia",
+          "name": "Listar todos los contenidos multimedia",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/contents",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
+              "raw": "{{baseUrl}}/contents",
+              "host": ["{{baseUrl}}"],
               "path": ["contents"]
             },
-            "description": "Obtiene la lista de todo el contenido multimedia"
+            "description": "Obtiene la lista de todos los contenidos multimedia"
           },
           "response": []
         },
@@ -623,17 +575,23 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/contents/1",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
-              "path": ["contents", "1"]
+              "raw": "{{baseUrl}}/contents/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["contents", ":id"],
+              "variable": [{"key": "id", "value": "CNT001"}]
             },
             "description": "Obtiene un contenido multimedia específico por su ID"
           },
           "response": []
         }
       ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
     }
   ]
 }
