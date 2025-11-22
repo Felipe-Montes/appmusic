@@ -3,7 +3,7 @@
     "_postman_id": "b1e3f5a2-9c4b-4d0c-8d1b-1c2d3e4f5a6b",
     "name": "AppMusic API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": "Colección Postman para AppMusic. Incluye endpoints REST y ejemplos de cuerpos que piden los mismos datos que la UI (WebController). Usa la variable baseUrl para el host."
+    "description": "Colección Postman para AppMusic. Cuerpos sin null y relaciones por ID para conectar con datos existentes o ingresar nuevos."
   },
   "variable": [
     { "key": "baseUrl", "value": "http://localhost:8080" },
@@ -18,24 +18,15 @@
     {
       "name": "Artists",
       "item": [
-        {
-          "name": "List Artists",
-          "request": { "method": "GET", "url": "{{baseUrl}}/artists" }
-        },
-        {
-          "name": "Get Artist by ID",
-          "request": { "method": "GET", "url": "{{baseUrl}}/artists/{{artistId}}" }
-        },
+        { "name": "List Artists", "request": { "method": "GET", "url": "{{baseUrl}}/artists" } },
+        { "name": "Get Artist by ID", "request": { "method": "GET", "url": "{{baseUrl}}/artists/{{artistId}}" } },
         {
           "name": "Create Artist (UI fields)",
           "request": {
             "method": "POST",
             "header": [ { "key": "Content-Type", "value": "application/json" } ],
             "url": "{{baseUrl}}/artists",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"idArtist\": \"{{artistId}}\",\n  \"name\": \"Queen\",\n  \"songs\": null,\n  \"albums\": null\n}"
-            }
+            "body": { "mode": "raw", "raw": "{\n  \"idArtist\": \"{{artistId}}\",\n  \"name\": \"Queen\"\n}" }
           }
         },
         {
@@ -44,16 +35,10 @@
             "method": "PUT",
             "header": [ { "key": "Content-Type", "value": "application/json" } ],
             "url": "{{baseUrl}}/artists",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"idArtist\": \"{{artistId}}\",\n  \"name\": \"Queen Updated\",\n  \"songs\": null,\n  \"albums\": null\n}"
-            }
+            "body": { "mode": "raw", "raw": "{\n  \"idArtist\": \"{{artistId}}\",\n  \"name\": \"Queen Updated\"\n}" }
           }
         },
-        {
-          "name": "Delete Artist",
-          "request": { "method": "DELETE", "url": "{{baseUrl}}/artists/{{artistId}}" }
-        }
+        { "name": "Delete Artist", "request": { "method": "DELETE", "url": "{{baseUrl}}/artists/{{artistId}}" } }
       ]
     },
     {
@@ -67,10 +52,7 @@
             "method": "POST",
             "header": [ { "key": "Content-Type", "value": "application/json" } ],
             "url": "{{baseUrl}}/albums",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"id\": \"{{albumId}}\",\n  \"title\": \"A Night at the Opera\",\n  \"duration\": 43.0,\n  \"artist\": { \n    \"idArtist\": \"{{artistId}}\",\n    \"name\": \"Queen\",\n    \"songs\": null,\n    \"albums\": null\n  },\n  \"songs\": null\n}"
-            }
+            "body": { "mode": "raw", "raw": "{\n  \"id\": \"{{albumId}}\",\n  \"title\": \"A Night at the Opera\",\n  \"duration\": 43.0,\n  \"artist\": { \n    \"idArtist\": \"{{artistId}}\"\n  }\n}" }
           }
         },
         {
@@ -79,10 +61,7 @@
             "method": "PUT",
             "header": [ { "key": "Content-Type", "value": "application/json" } ],
             "url": "{{baseUrl}}/albums",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"id\": \"{{albumId}}\",\n  \"title\": \"A Night at the Opera (Remastered)\",\n  \"duration\": 44.5,\n  \"artist\": { \n    \"idArtist\": \"{{artistId}}\",\n    \"name\": \"Queen\",\n    \"songs\": null,\n    \"albums\": null\n  },\n  \"songs\": null\n}"
-            }
+            "body": { "mode": "raw", "raw": "{\n  \"id\": \"{{albumId}}\",\n  \"title\": \"A Night at the Opera (Remastered)\",\n  \"duration\": 44.5,\n  \"artist\": { \n    \"idArtist\": \"{{artistId}}\"\n  }\n}" }
           }
         },
         { "name": "Delete Album", "request": { "method": "DELETE", "url": "{{baseUrl}}/albums/{{albumId}}" } }
@@ -99,10 +78,7 @@
             "method": "POST",
             "header": [ { "key": "Content-Type", "value": "application/json" } ],
             "url": "{{baseUrl}}/songs",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"id\": \"{{songId}}\",\n  \"title\": \"Bohemian Rhapsody\",\n  \"duration\": 5.55,\n  \"musicGenre\": \"ROCK\",\n  \"artist\": { \n    \"idArtist\": \"{{artistId}}\",\n    \"name\": \"Queen\",\n    \"songs\": null,\n    \"albums\": null\n  },\n  \"album\": {\n    \"id\": \"{{albumId}}\",\n    \"title\": \"A Night at the Opera\",\n    \"duration\": 43.0,\n    \"artist\": { \n      \"idArtist\": \"{{artistId}}\",\n      \"name\": \"Queen\",\n      \"songs\": null,\n      \"albums\": null\n    },\n    \"songs\": null\n  }\n}"
-            }
+            "body": { "mode": "raw", "raw": "{\n  \"id\": \"{{songId}}\",\n  \"title\": \"Bohemian Rhapsody\",\n  \"duration\": 5.55,\n  \"musicGenre\": \"ROCK\",\n  \"artist\": { \n    \"idArtist\": \"{{artistId}}\"\n  },\n  \"album\": {\n    \"id\": \"{{albumId}}\"\n  }\n}" }
           }
         },
         {
@@ -111,10 +87,7 @@
             "method": "PUT",
             "header": [ { "key": "Content-Type", "value": "application/json" } ],
             "url": "{{baseUrl}}/songs",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"id\": \"{{songId}}\",\n  \"title\": \"Bohemian Rhapsody (Live)\",\n  \"duration\": 6.1,\n  \"musicGenre\": \"ROCK\",\n  \"artist\": { \n    \"idArtist\": \"{{artistId}}\",\n    \"name\": \"Queen\",\n    \"songs\": null,\n    \"albums\": null\n  },\n  \"album\": {\n    \"id\": \"{{albumId}}\",\n    \"title\": \"A Night at the Opera\",\n    \"duration\": 43.0,\n    \"artist\": { \n      \"idArtist\": \"{{artistId}}\",\n      \"name\": \"Queen\",\n      \"songs\": null,\n      \"albums\": null\n    },\n    \"songs\": null\n  }\n}"
-            }
+            "body": { "mode": "raw", "raw": "{\n  \"id\": \"{{songId}}\",\n  \"title\": \"Bohemian Rhapsody (Live)\",\n  \"duration\": 6.1,\n  \"musicGenre\": \"ROCK\",\n  \"artist\": { \n    \"idArtist\": \"{{artistId}}\"\n  },\n  \"album\": {\n    \"id\": \"{{albumId}}\"\n  }\n}" }
           }
         },
         { "name": "Delete Song", "request": { "method": "DELETE", "url": "{{baseUrl}}/songs/{{songId}}" } }
@@ -131,10 +104,7 @@
             "method": "POST",
             "header": [ { "key": "Content-Type", "value": "application/json" } ],
             "url": "{{baseUrl}}/users",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"idUser\": \"{{userId}}\",\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"subscriptionType\": \"FREE\",\n  \"playlists\": null\n}"
-            }
+            "body": { "mode": "raw", "raw": "{\n  \"idUser\": \"{{userId}}\",\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"subscriptionType\": \"FREE\"\n}" }
           }
         },
         {
@@ -143,10 +113,7 @@
             "method": "PUT",
             "header": [ { "key": "Content-Type", "value": "application/json" } ],
             "url": "{{baseUrl}}/users",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"idUser\": \"{{userId}}\",\n  \"name\": \"John Doe Updated\",\n  \"email\": \"john.updated@example.com\",\n  \"subscriptionType\": \"PREMIUM\",\n  \"playlists\": null\n}"
-            }
+            "body": { "mode": "raw", "raw": "{\n  \"idUser\": \"{{userId}}\",\n  \"name\": \"John Doe Updated\",\n  \"email\": \"john.updated@example.com\",\n  \"subscriptionType\": \"PREMIUM\"\n}" }
           }
         },
         { "name": "Delete User", "request": { "method": "DELETE", "url": "{{baseUrl}}/users/{{userId}}" } }
@@ -163,10 +130,7 @@
             "method": "POST",
             "header": [ { "key": "Content-Type", "value": "application/json" } ],
             "url": "{{baseUrl}}/playlists",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"idPlaylist\": \"{{playlistId}}\",\n  \"name\": \"Favorites\",\n  \"user\": {\n    \"idUser\": \"{{userId}}\",\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"subscriptionType\": \"FREE\",\n    \"playlists\": null\n  },\n  \"songs\": [\n    { \n      \"id\": \"{{songId}}\",\n      \"title\": \"Bohemian Rhapsody\",\n      \"duration\": 5.55,\n      \"musicGenre\": \"ROCK\",\n      \"artist\": { \n        \"idArtist\": \"{{artistId}}\",\n        \"name\": \"Queen\",\n        \"songs\": null,\n        \"albums\": null\n      },\n      \"album\": {\n        \"id\": \"{{albumId}}\",\n        \"title\": \"A Night at the Opera\",\n        \"duration\": 43.0,\n        \"artist\": { \n          \"idArtist\": \"{{artistId}}\",\n          \"name\": \"Queen\",\n          \"songs\": null,\n          \"albums\": null\n        },\n        \"songs\": null\n      }\n    }\n  ]\n}"
-            }
+            "body": { "mode": "raw", "raw": "{\n  \"idPlaylist\": \"{{playlistId}}\",\n  \"name\": \"Favorites\",\n  \"user\": {\n    \"idUser\": \"{{userId}}\"\n  },\n  \"songs\": [\n    { \n      \"id\": \"{{songId}}\"\n    }\n  ]\n}" }
           }
         },
         {
@@ -175,10 +139,7 @@
             "method": "PUT",
             "header": [ { "key": "Content-Type", "value": "application/json" } ],
             "url": "{{baseUrl}}/playlists",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"idPlaylist\": \"{{playlistId}}\",\n  \"name\": \"Favorites Updated\",\n  \"user\": null,\n  \"songs\": null\n}"
-            }
+            "body": { "mode": "raw", "raw": "{\n  \"idPlaylist\": \"{{playlistId}}\",\n  \"name\": \"Favorites Updated\",\n  \"user\": {\n    \"idUser\": \"{{userId}}\"\n  },\n  \"songs\": [\n    { \n      \"id\": \"{{songId}}\"\n    }\n  ]\n}" }
           }
         },
         { "name": "Delete Playlist", "request": { "method": "DELETE", "url": "{{baseUrl}}/playlists/{{playlistId}}" } }
@@ -195,20 +156,10 @@
             "method": "POST",
             "header": [ { "key": "Content-Type", "value": "application/json" } ],
             "url": "{{baseUrl}}/play-history",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"idHistory\": \"{{historyId}}\",\n  \"user\": {\n    \"idUser\": \"{{userId}}\",\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"subscriptionType\": \"FREE\",\n    \"playlists\": null\n  },\n  \"song\": {\n    \"id\": \"{{songId}}\",\n    \"title\": \"Bohemian Rhapsody\",\n    \"duration\": 5.55,\n    \"musicGenre\": \"ROCK\",\n    \"artist\": { \n      \"idArtist\": \"{{artistId}}\",\n      \"name\": \"Queen\",\n      \"songs\": null,\n      \"albums\": null\n    },\n    \"album\": {\n      \"id\": \"{{albumId}}\",\n      \"title\": \"A Night at the Opera\",\n      \"duration\": 43.0,\n      \"artist\": { \n        \"idArtist\": \"{{artistId}}\",\n        \"name\": \"Queen\",\n        \"songs\": null,\n        \"albums\": null\n      },\n      \"songs\": null\n    }\n  },\n  \"playDate\": \"2025-01-01T12:00:00\"\n}"
-            }
+            "body": { "mode": "raw", "raw": "{\n  \"idHistory\": \"{{historyId}}\",\n  \"user\": {\n    \"idUser\": \"{{userId}}\"\n  },\n  \"song\": {\n    \"id\": \"{{songId}}\"\n  },\n  \"playDate\": \"2025-01-01T12:00:00\"\n}" }
           }
         },
         { "name": "Delete Play History", "request": { "method": "DELETE", "url": "{{baseUrl}}/play-history/{{historyId}}" } }
-      ]
-    },
-    {
-      "name": "Multimedia Contents (Read-only)",
-      "item": [
-        { "name": "List Contents", "request": { "method": "GET", "url": "{{baseUrl}}/contents" } },
-        { "name": "Get Content by ID", "request": { "method": "GET", "url": "{{baseUrl}}/contents/{{songId}}" } }
       ]
     },
     {
