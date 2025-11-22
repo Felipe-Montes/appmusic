@@ -169,7 +169,6 @@ public class WebController {
             @RequestParam String email,
             @RequestParam String subscriptionType,
             @RequestParam(required = false) String idPayment,
-            @RequestParam(required = false) Double amount,
             @RequestParam(required = false) String paymentDate
     ) {
         SubscriptionType st = SubscriptionType.valueOf(subscriptionType);
@@ -177,8 +176,8 @@ public class WebController {
             userService.addUser(new User(idUser, name, email, st, null));
             // Si es un plan pago, exigir y registrar el pago
             if (st == SubscriptionType.PREMIUM || st == SubscriptionType.FAMILY) {
-                if (idPayment == null || idPayment.isBlank() || amount == null || amount <= 0 || paymentDate == null || paymentDate.isBlank()) {
-                    String msg = URLEncoder.encode("Se requieren datos de pago para planes PREMIUM o FAMILY", StandardCharsets.UTF_8);
+                if (idPayment == null || idPayment.isBlank() || paymentDate == null || paymentDate.isBlank()) {
+                    String msg = URLEncoder.encode("Se requieren idPayment y paymentDate para planes PREMIUM o FAMILY", StandardCharsets.UTF_8);
                     return "redirect:/ui/users?error=" + msg;
                 }
                 LocalDate date;
@@ -186,7 +185,8 @@ public class WebController {
                     String msg = URLEncoder.encode("Fecha de pago inválida (use AAAA-MM-DD)", StandardCharsets.UTF_8);
                     return "redirect:/ui/users?error=" + msg;
                 }
-                paymentService.addPayment(new Payment(idPayment, amount, date, userService.getUserById(idUser)));
+                double defAmount = (st == SubscriptionType.PREMIUM) ? 3_000_000D : 6_000_000D;
+                paymentService.addPayment(new Payment(idPayment, defAmount, date, userService.getUserById(idUser)));
             }
             return "redirect:/ui/users";
         } catch (DuplicateResourceException ex) {

@@ -248,7 +248,7 @@
             "method": "POST",
             "header": [ { "key": "Content-Type", "value": "application/json" } ],
             "url": "{{baseUrl}}/users/register",
-            "description": "Registra un usuario. Si subscriptionType es PREMIUM o FAMILY, se requieren datos de pago (idPayment, amount > 0, paymentDate AAAA-MM-DD). Tipos permitidos: FREE, PREMIUM, FAMILY.",
+            "description": "Registra un usuario. Si subscriptionType es PREMIUM o FAMILY, se requieren datos de pago (idPayment y paymentDate AAAA-MM-DD). El monto se asigna automáticamente según el plan: PREMIUM=3,000,000 y FAMILY=6,000,000. Tipos permitidos: FREE, PREMIUM, FAMILY.",
             "body": {
               "mode": "raw",
               "raw": "{\n  \"idUser\": \"USR-100\",\n  \"name\": \"Jane Doe\",\n  \"email\": \"jane@example.com\",\n  \"subscriptionType\": \"FREE\"\n}"
@@ -269,7 +269,7 @@
               "status": "OK",
               "code": 200,
               "header": [ { "key": "Content-Type", "value": "application/json" } ],
-              "body": "{\n  \"idUser\": \"USR-200\",\n  \"name\": \"Carlos Perez\",\n  \"email\": \"carlos@example.com\",\n  \"subscriptionType\": \"PREMIUM\",\n  \"idPayment\": \"PAY-200\",\n  \"amount\": 5000000,\n  \"paymentDate\": \"2025-11-13\"\n}"
+              "body": "{\n  \"idUser\": \"USR-200\",\n  \"name\": \"Carlos Perez\",\n  \"email\": \"carlos@example.com\",\n  \"subscriptionType\": \"PREMIUM\",\n  \"idPayment\": \"PAY-200\",\n  \"paymentDate\": \"2025-11-13\"\n}"
             },
             {
               "name": "Ejemplo FAMILY (con pago)",
@@ -277,7 +277,7 @@
               "status": "OK",
               "code": 200,
               "header": [ { "key": "Content-Type", "value": "application/json" } ],
-              "body": "{\n  \"idUser\": \"USR-300\",\n  \"name\": \"Laura Gomez\",\n  \"email\": \"laura@example.com\",\n  \"subscriptionType\": \"FAMILY\",\n  \"idPayment\": \"PAY-300\",\n  \"amount\": 1000000,\n  \"paymentDate\": \"2025-11-12\"\n}"
+              "body": "{\n  \"idUser\": \"USR-300\",\n  \"name\": \"Laura Gomez\",\n  \"email\": \"laura@example.com\",\n  \"subscriptionType\": \"FAMILY\",\n  \"idPayment\": \"PAY-300\",\n  \"paymentDate\": \"2025-11-12\"\n}"
             }
           ],
           "event": [

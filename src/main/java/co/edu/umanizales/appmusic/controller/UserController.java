@@ -15,7 +15,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Positive;
 
 // Controlador REST para gestionar recursos de Usuarios
 @RestController
@@ -25,6 +24,9 @@ public class UserController {
     // Servicio de dominio que maneja la lógica de usuarios
     private final UserService userService;
     private final PaymentService paymentService;
+
+    private static final long DEFAULT_PREMIUM_AMOUNT = 3_000_000L;
+    private static final long DEFAULT_FAMILY_AMOUNT = 6_000_000L;
 
     // GET /users - Lista todos los usuarios
     @GetMapping
@@ -56,14 +58,15 @@ public class UserController {
         SubscriptionType st = SubscriptionType.valueOf(req.subscriptionType());
         userService.addUser(new User(req.idUser(), req.name(), req.email(), st, null));
         if (st == SubscriptionType.PREMIUM || st == SubscriptionType.FAMILY) {
-            if (req.idPayment() == null || req.idPayment().isBlank() || req.amount() == null || req.amount() <= 0 || req.paymentDate() == null || req.paymentDate().isBlank()) {
-                return ResponseEntity.badRequest().body("Se requieren idPayment, amount > 0 y paymentDate (AAAA-MM-DD) para planes PREMIUM o FAMILY");
+            if (req.idPayment() == null || req.idPayment().isBlank() || req.paymentDate() == null || req.paymentDate().isBlank()) {
+                return ResponseEntity.badRequest().body("Se requieren idPayment y paymentDate (AAAA-MM-DD) para planes PREMIUM o FAMILY");
             }
             LocalDate date;
             try { date = LocalDate.parse(req.paymentDate()); } catch (Exception e) {
                 return ResponseEntity.badRequest().body("Fecha de pago inválida, formato AAAA-MM-DD");
             }
-            paymentService.addPayment(new Payment(req.idPayment(), req.amount(), date, userService.getUserById(req.idUser())));
+            double amount = (st == SubscriptionType.PREMIUM) ? DEFAULT_PREMIUM_AMOUNT : DEFAULT_FAMILY_AMOUNT;
+            paymentService.addPayment(new Payment(req.idPayment(), amount, date, userService.getUserById(req.idUser())));
         }
         return ResponseEntity.ok().build();
     }
@@ -74,7 +77,6 @@ public class UserController {
             @NotBlank(message = "email es obligatorio") @Email(message = "email inválido") String email,
             @NotBlank(message = "subscriptionType es obligatorio") @Pattern(regexp = "FREE|PREMIUM|FAMILY", message = "subscriptionType debe ser FREE, PREMIUM o FAMILY") String subscriptionType,
             String idPayment,
-            @Positive(message = "amount debe ser > 0") Double amount,
             String paymentDate
     ) {}
 
