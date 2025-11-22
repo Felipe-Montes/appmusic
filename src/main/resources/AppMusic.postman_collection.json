@@ -224,10 +224,10 @@
             "method": "POST",
             "header": [ { "key": "Content-Type", "value": "application/json" } ],
             "url": "{{baseUrl}}/users/register",
-            "description": "Registra un usuario. Si subscriptionType es PREMIUM o FAMILY, se requieren datos de pago (idPayment y paymentDate AAAA-MM-DD). El monto se asigna automáticamente según el plan: PREMIUM=3,000,000 y FAMILY=6,000,000. Tipos permitidos: FREE, PREMIUM, FAMILY.",
+            "description": "Registra un usuario. Si subscriptionType es PREMIUM o FAMILY, se requieren datos de pago (idPayment y paymentDate AAAA-MM-DD). El monto se asigna automáticamente según el plan: PREMIUM=15,000 y FAMILY=30,000. Tipos permitidos: FREE, PREMIUM, FAMILY.",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"idUser\": \"USR-100\",\n  \"name\": \"Jane Doe\",\n  \"email\": \"jane@example.com\",\n  \"subscriptionType\": \"FREE\"\n}"
+              "raw": "{\n  \"idUser\": \"USR-200\",\n  \"name\": \"Carlos Perez\",\n  \"email\": \"carlos@example.com\",\n  \"subscriptionType\": \"PREMIUM\",\n  \"idPayment\": \"PAY-200\",\n  \"paymentDate\": \"2025-11-13\"\n}"
             }
           },
           "response": [
@@ -398,7 +398,7 @@
             "method": "GET",
             "header": [ { "key": "Accept", "value": "application/json" } ],
             "url": "{{baseUrl}}/payments/report",
-            "description": "Reporte de pagos por fecha y tipo de suscripción. Solo se muestran PREMIUM y FAMILY.\n\n| Fecha | FAMILY | PREMIUM | Total |\n|---|---:|---:|---:|\n| 2025-11-12 | 1,000,000 | 3,000,000 | 4,000,000 |\n| 2025-11-13 | 0 | 5,000,000 | 5,000,000 |\n| 2025-11-14 | 3,000,000 | 6,000,000 | 9,000,000 |"
+            "description": "Reporte de pagos por fecha y tipo de suscripción. Solo se muestran PREMIUM y FAMILY.\n\n| Fecha | FAMILY | PREMIUM | Total |\n|---|---:|---:|---:|\n| 2025-11-12 | 30,000 | 15,000 | 45,000 |\n| 2025-11-13 | 0 | 15,000 | 15,000 |\n| 2025-11-14 | 30,000 | 30,000 | 60,000 |"
           },
           "response": [
             {
@@ -407,7 +407,7 @@
               "status": "OK",
               "code": 200,
               "header": [ { "key": "Content-Type", "value": "application/json" } ],
-              "body": "[\n  {\n    \"fecha\": \"2025-11-12\",\n    \"subscripciones\": [\n      { \"tipo_sub\": \"FAMILY\", \"valor\": 1000000 },\n      { \"tipo_sub\": \"PREMIUM\", \"valor\": 3000000 }\n    ],\n    \"total_tipo\": 4000000\n  },\n  {\n    \"fecha\": \"2025-11-13\",\n    \"subscripciones\": [\n      { \"tipo_sub\": \"FAMILY\", \"valor\": 0 },\n      { \"tipo_sub\": \"PREMIUM\", \"valor\": 5000000 }\n    ],\n    \"total_tipo\": 5000000\n  },\n  {\n    \"fecha\": \"2025-11-14\",\n    \"subscripciones\": [\n      { \"tipo_sub\": \"FAMILY\", \"valor\": 3000000 },\n      { \"tipo_sub\": \"PREMIUM\", \"valor\": 6000000 }\n    ],\n    \"total_tipo\": 9000000\n  }\n]"
+              "body": "[\n  {\n    \"fecha\": \"2025-11-12\",\n    \"subscripciones\": [\n      { \"tipo_sub\": \"FAMILY\", \"valor\": 30000 },\n      { \"tipo_sub\": \"PREMIUM\", \"valor\": 15000 }\n    ],\n    \"total_tipo\": 45000\n  },\n  {\n    \"fecha\": \"2025-11-13\",\n    \"subscripciones\": [\n      { \"tipo_sub\": \"FAMILY\", \"valor\": 0 },\n      { \"tipo_sub\": \"PREMIUM\", \"valor\": 15000 }\n    ],\n    \"total_tipo\": 15000\n  },\n  {\n    \"fecha\": \"2025-11-14\",\n    \"subscripciones\": [\n      { \"tipo_sub\": \"FAMILY\", \"valor\": 30000 },\n      { \"tipo_sub\": \"PREMIUM\", \"valor\": 30000 }\n    ],\n    \"total_tipo\": 60000\n  }\n]"
             },
             {
               "name": "Ejemplo - Rango de fechas",
@@ -415,7 +415,7 @@
               "status": "OK",
               "code": 200,
               "header": [ { "key": "Content-Type", "value": "application/json" } ],
-              "body": "{\n  \"fecha_inicial\": \"2025-11-12\",\n  \"fecha_final\": \"2025-11-14\",\n  \"dias\": [\n    {\n      \"fecha\": \"2025-11-12\",\n      \"subscripciones\": [\n        { \"tipo_sub\": \"FAMILY\", \"valor\": 1000000 },\n        { \"tipo_sub\": \"PREMIUM\", \"valor\": 3000000 }\n      ],\n      \"total_tipo\": 4000000\n    },\n    {\n      \"fecha\": \"2025-11-13\",\n      \"subscripciones\": [\n        { \"tipo_sub\": \"FAMILY\", \"valor\": 0 },\n        { \"tipo_sub\": \"PREMIUM\", \"valor\": 5000000 }\n      ],\n      \"total_tipo\": 5000000\n    },\n    {\n      \"fecha\": \"2025-11-14\",\n      \"subscripciones\": [\n        { \"tipo_sub\": \"FAMILY\", \"valor\": 3000000 },\n        { \"tipo_sub\": \"PREMIUM\", \"valor\": 6000000 }\n      ],\n      \"total_tipo\": 9000000\n    }\n  ]\n}"
+              "body": "{\n  \"fecha_inicial\": \"2025-11-12\",\n  \"fecha_final\": \"2025-11-14\",\n  \"dias\": [\n    {\n      \"fecha\": \"2025-11-12\",\n      \"subscripciones\": [\n        { \"tipo_sub\": \"FAMILY\", \"valor\": 30000 },\n        { \"tipo_sub\": \"PREMIUM\", \"valor\": 15000 }\n      ],\n      \"total_tipo\": 45000\n    },\n    {\n      \"fecha\": \"2025-11-13\",\n      \"subscripciones\": [\n        { \"tipo_sub\": \"FAMILY\", \"valor\": 0 },\n        { \"tipo_sub\": \"PREMIUM\", \"valor\": 15000 }\n      ],\n      \"total_tipo\": 15000\n    },\n    {\n      \"fecha\": \"2025-11-14\",\n      \"subscripciones\": [\n        { \"tipo_sub\": \"FAMILY\", \"valor\": 30000 },\n        { \"tipo_sub\": \"PREMIUM\", \"valor\": 30000 }\n      ],\n      \"total_tipo\": 60000\n    }\n  ]\n}"
             }
           ]
         }

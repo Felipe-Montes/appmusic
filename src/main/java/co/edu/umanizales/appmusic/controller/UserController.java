@@ -25,8 +25,8 @@ public class UserController {
     private final UserService userService;
     private final PaymentService paymentService;
 
-    private static final long DEFAULT_PREMIUM_AMOUNT = 3_000_000L;
-    private static final long DEFAULT_FAMILY_AMOUNT = 6_000_000L;
+    private static final long DEFAULT_PREMIUM_AMOUNT = 15_000L;
+    private static final long DEFAULT_FAMILY_AMOUNT = 30_000L;
 
     // GET /users - Lista todos los usuarios
     @GetMapping

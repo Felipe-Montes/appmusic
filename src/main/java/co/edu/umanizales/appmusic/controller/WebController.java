@@ -188,7 +188,7 @@ public class WebController {
                     String msg = URLEncoder.encode("Fecha de pago inválida (use AAAA-MM-DD)", StandardCharsets.UTF_8);
                     return "redirect:/ui/users?error=" + msg;
                 }
-                double defAmount = (st == SubscriptionType.PREMIUM) ? 3_000_000D : 6_000_000D;
+                double defAmount = (st == SubscriptionType.PREMIUM) ? 15_000D : 30_000D;
                 paymentService.addPayment(new Payment(idPayment, defAmount, date, userService.getUserById(idUser)));
             }
             return "redirect:/ui/users";
