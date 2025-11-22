@@ -1,7 +1,11 @@
 package co.edu.umanizales.appmusic.controller;
 
 import co.edu.umanizales.appmusic.model.PlayHistory;
+import co.edu.umanizales.appmusic.model.User;
+import co.edu.umanizales.appmusic.model.Song;
 import co.edu.umanizales.appmusic.service.PlayHistoryService;
+import co.edu.umanizales.appmusic.service.UserService;
+import co.edu.umanizales.appmusic.service.SongService;
 import lombok.RequiredArgsConstructor;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +20,8 @@ import java.util.List;
 public class PlayHistoryController {
     // Servicio de dominio que maneja la lógica del historial de reproducciones
     private final PlayHistoryService playHistoryService;
+    private final UserService userService;
+    private final SongService songService;
 
     // GET /play-history - Lista todos los registros del historial
     @GetMapping
@@ -37,6 +43,16 @@ public class PlayHistoryController {
     // POST /play-history - Crea un nuevo registro en el historial
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody @Valid PlayHistory history) {
+        if (history.getUser() != null && history.getUser().getIdUser() != null && !history.getUser().getIdUser().isBlank()) {
+            User user = userService.getUserById(history.getUser().getIdUser());
+            if (user == null) { return ResponseEntity.badRequest().build(); }
+            history.setUser(user);
+        }
+        if (history.getSong() != null && history.getSong().getId() != null && !history.getSong().getId().isBlank()) {
+            Song song = songService.getSongById(history.getSong().getId());
+            if (song == null) { return ResponseEntity.badRequest().build(); }
+            history.setSong(song);
+        }
         playHistoryService.save(history);
         return ResponseEntity.ok().build();
     }
