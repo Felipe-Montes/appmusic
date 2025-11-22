@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Payments Report</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Reporte de Pagos</h1>
+    <p>Se muestran únicamente suscripciones FAMILY y PREMIUM.</p>
+    <table role="grid">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th style="text-align:right;">FAMILY</th>
+          <th style="text-align:right;">PREMIUM</th>
+          <th style="text-align:right;">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="row : ${rows}">
+          <td th:text="${row.fecha}">2025-11-12</td>
+          <td style="text-align:right;" th:text="${#numbers.formatInteger(row.family, 0, 'POINT')}"/> 
+          <td style="text-align:right;" th:text="${#numbers.formatInteger(row.premium, 0, 'POINT')}"/>
+          <td style="text-align:right;" th:text="${#numbers.formatInteger(row.total, 0, 'POINT')}"/>
+        </tr>
+      </tbody>
+    </table>
+    <p><a href="/ui">Volver al inicio</a></p>
+  </main>
+</body>
+</html>

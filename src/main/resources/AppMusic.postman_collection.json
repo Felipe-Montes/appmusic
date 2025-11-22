@@ -195,30 +195,6 @@
         { "name": "List Users", "request": { "method": "GET", "url": "{{baseUrl}}/users" } },
         { "name": "Get User by ID", "request": { "method": "GET", "url": "{{baseUrl}}/users/{{userId}}" } },
         {
-          "name": "Create User (UI fields)",
-          "request": {
-            "method": "POST",
-            "header": [ { "key": "Content-Type", "value": "application/json" } ],
-            "url": "{{baseUrl}}/users",
-            "body": { "mode": "raw", "raw": "{\n  \"idUser\": \"{{userId}}\",\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"subscriptionType\": \"FREE\"\n}" }
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "try {",
-                  "  const raw = pm.request.body && pm.request.body.raw ? pm.request.body.raw : '{}';",
-                  "  const data = JSON.parse(raw);",
-                  "  if (data.idUser) pm.collectionVariables.set('userId', data.idUser);",
-                  "} catch (e) { /* ignore */ }"
-                ]
-              }
-            }
-          ]
-        },
-        {
           "name": "Update User",
           "request": {
             "method": "PUT",
@@ -281,6 +257,26 @@
             }
           ],
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const raw = pm.request.body && pm.request.body.raw ? pm.request.body.raw : '{}';",
+                  "let data = {};",
+                  "try { data = JSON.parse(raw); } catch (e) { throw new Error('Body JSON inválido'); }",
+                  "const st = (data.subscriptionType || '').toUpperCase();",
+                  "if (st === 'PREMIUM' || st === 'FAMILY') {",
+                  "  if (!data.idPayment || !data.paymentDate) {",
+                  "    throw new Error('Para PREMIUM o FAMILY debes enviar idPayment y paymentDate (YYYY-MM-DD)');",
+                  "  }",
+                  "}",
+                  "if (!['FREE','PREMIUM','FAMILY'].includes(st)) {",
+                  "  throw new Error('subscriptionType debe ser FREE, PREMIUM o FAMILY');",
+                  "}"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
@@ -433,7 +429,8 @@
         { "name": "UI Albums", "request": { "method": "GET", "url": "{{baseUrl}}/ui/albums" } },
         { "name": "UI Songs", "request": { "method": "GET", "url": "{{baseUrl}}/ui/songs" } },
         { "name": "UI Users", "request": { "method": "GET", "url": "{{baseUrl}}/ui/users" } },
-        { "name": "UI Playlists", "request": { "method": "GET", "url": "{{baseUrl}}/ui/playlists" } }
+        { "name": "UI Playlists", "request": { "method": "GET", "url": "{{baseUrl}}/ui/playlists" } },
+        { "name": "UI Payments (tabla)", "request": { "method": "GET", "url": "{{baseUrl}}/ui/payments" }, "description": "Vista HTML con tabla por fecha mostrando FAMILY, PREMIUM y Total" }
       ]
     }
   ]

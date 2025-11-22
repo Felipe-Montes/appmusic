@@ -20,6 +20,9 @@ import java.util.List;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+import java.util.Map;
+import java.util.Comparator;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/ui")
@@ -206,6 +209,29 @@ public class WebController {
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("songs", songService.getAllSongs());
         return "playlists";
+    }
+
+    @GetMapping("/payments")
+    public String payments(Model model) {
+        var data = paymentService.getAllPayments().stream()
+                .filter(p -> p.getPaymentDate() != null && p.getUser() != null && p.getUser().getSubscriptionType() != null)
+                .filter(p -> p.getUser().getSubscriptionType() == SubscriptionType.PREMIUM || p.getUser().getSubscriptionType() == SubscriptionType.FAMILY)
+                .collect(Collectors.groupingBy(Payment::getPaymentDate,
+                        Collectors.groupingBy(p -> p.getUser().getSubscriptionType(), Collectors.summingDouble(Payment::getAmount))
+                ));
+        record Row(LocalDate fecha, long family, long premium, long total) {}
+        List<Row> rows = data.entrySet().stream()
+                .map(e -> {
+                    double fam = e.getValue().getOrDefault(SubscriptionType.FAMILY, 0.0);
+                    double pre = e.getValue().getOrDefault(SubscriptionType.PREMIUM, 0.0);
+                    long lf = (long) fam;
+                    long lp = (long) pre;
+                    return new Row(e.getKey(), lf, lp, lf + lp);
+                })
+                .sorted(Comparator.comparing(Row::fecha))
+                .toList();
+        model.addAttribute("rows", rows);
+        return "payments";
     }
 
     /**
