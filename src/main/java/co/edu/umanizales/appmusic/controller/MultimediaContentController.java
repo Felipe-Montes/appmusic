@@ -3,7 +3,6 @@ package co.edu.umanizales.appmusic.controller;
 import co.edu.umanizales.appmusic.model.MultimediaContent;
 import co.edu.umanizales.appmusic.service.MultimediaContentService;
 import lombok.RequiredArgsConstructor;
-import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
