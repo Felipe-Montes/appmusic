@@ -27,7 +27,22 @@
             "header": [ { "key": "Content-Type", "value": "application/json" } ],
             "url": "{{baseUrl}}/artists",
             "body": { "mode": "raw", "raw": "{\n  \"idArtist\": \"{{artistId}}\",\n  \"name\": \"Queen\"\n}" }
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "try {",
+                  "  const raw = pm.request.body && pm.request.body.raw ? pm.request.body.raw : '{}';",
+                  "  const data = JSON.parse(raw);",
+                  "  if (data.idArtist) pm.collectionVariables.set('artistId', data.idArtist);",
+                  "} catch (e) { /* ignore */ }"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "Update Artist",
@@ -36,7 +51,22 @@
             "header": [ { "key": "Content-Type", "value": "application/json" } ],
             "url": "{{baseUrl}}/artists",
             "body": { "mode": "raw", "raw": "{\n  \"idArtist\": \"{{artistId}}\",\n  \"name\": \"Queen Updated\"\n}" }
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "try {",
+                  "  const raw = pm.request.body && pm.request.body.raw ? pm.request.body.raw : '{}';",
+                  "  const data = JSON.parse(raw);",
+                  "  if (data.idArtist) pm.collectionVariables.set('artistId', data.idArtist);",
+                  "} catch (e) { /* ignore */ }"
+                ]
+              }
+            }
+          ]
         },
         { "name": "Delete Artist", "request": { "method": "DELETE", "url": "{{baseUrl}}/artists/{{artistId}}" } }
       ]
@@ -53,7 +83,23 @@
             "header": [ { "key": "Content-Type", "value": "application/json" } ],
             "url": "{{baseUrl}}/albums",
             "body": { "mode": "raw", "raw": "{\n  \"id\": \"{{albumId}}\",\n  \"title\": \"A Night at the Opera\",\n  \"duration\": 43.0,\n  \"artist\": { \n    \"idArtist\": \"{{artistId}}\"\n  }\n}" }
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "try {",
+                  "  const raw = pm.request.body && pm.request.body.raw ? pm.request.body.raw : '{}';",
+                  "  const data = JSON.parse(raw);",
+                  "  if (data.id) pm.collectionVariables.set('albumId', data.id);",
+                  "  if (data.artist && data.artist.idArtist) pm.collectionVariables.set('artistId', data.artist.idArtist);",
+                  "} catch (e) { /* ignore */ }"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "Update Album",
@@ -62,7 +108,23 @@
             "header": [ { "key": "Content-Type", "value": "application/json" } ],
             "url": "{{baseUrl}}/albums",
             "body": { "mode": "raw", "raw": "{\n  \"id\": \"{{albumId}}\",\n  \"title\": \"A Night at the Opera (Remastered)\",\n  \"duration\": 44.5,\n  \"artist\": { \n    \"idArtist\": \"{{artistId}}\"\n  }\n}" }
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "try {",
+                  "  const raw = pm.request.body && pm.request.body.raw ? pm.request.body.raw : '{}';",
+                  "  const data = JSON.parse(raw);",
+                  "  if (data.id) pm.collectionVariables.set('albumId', data.id);",
+                  "  if (data.artist && data.artist.idArtist) pm.collectionVariables.set('artistId', data.artist.idArtist);",
+                  "} catch (e) { /* ignore */ }"
+                ]
+              }
+            }
+          ]
         },
         { "name": "Delete Album", "request": { "method": "DELETE", "url": "{{baseUrl}}/albums/{{albumId}}" } }
       ]
@@ -79,7 +141,24 @@
             "header": [ { "key": "Content-Type", "value": "application/json" } ],
             "url": "{{baseUrl}}/songs",
             "body": { "mode": "raw", "raw": "{\n  \"id\": \"{{songId}}\",\n  \"title\": \"Bohemian Rhapsody\",\n  \"duration\": 5.55,\n  \"musicGenre\": \"ROCK\",\n  \"artist\": { \n    \"idArtist\": \"{{artistId}}\"\n  },\n  \"album\": {\n    \"id\": \"{{albumId}}\"\n  }\n}" }
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "try {",
+                  "  const raw = pm.request.body && pm.request.body.raw ? pm.request.body.raw : '{}';",
+                  "  const data = JSON.parse(raw);",
+                  "  if (data.id) pm.collectionVariables.set('songId', data.id);",
+                  "  if (data.artist && data.artist.idArtist) pm.collectionVariables.set('artistId', data.artist.idArtist);",
+                  "  if (data.album && data.album.id) pm.collectionVariables.set('albumId', data.album.id);",
+                  "} catch (e) { /* ignore */ }"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "Update Song",
@@ -88,7 +167,24 @@
             "header": [ { "key": "Content-Type", "value": "application/json" } ],
             "url": "{{baseUrl}}/songs",
             "body": { "mode": "raw", "raw": "{\n  \"id\": \"{{songId}}\",\n  \"title\": \"Bohemian Rhapsody (Live)\",\n  \"duration\": 6.1,\n  \"musicGenre\": \"ROCK\",\n  \"artist\": { \n    \"idArtist\": \"{{artistId}}\"\n  },\n  \"album\": {\n    \"id\": \"{{albumId}}\"\n  }\n}" }
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "try {",
+                  "  const raw = pm.request.body && pm.request.body.raw ? pm.request.body.raw : '{}';",
+                  "  const data = JSON.parse(raw);",
+                  "  if (data.id) pm.collectionVariables.set('songId', data.id);",
+                  "  if (data.artist && data.artist.idArtist) pm.collectionVariables.set('artistId', data.artist.idArtist);",
+                  "  if (data.album && data.album.id) pm.collectionVariables.set('albumId', data.album.id);",
+                  "} catch (e) { /* ignore */ }"
+                ]
+              }
+            }
+          ]
         },
         { "name": "Delete Song", "request": { "method": "DELETE", "url": "{{baseUrl}}/songs/{{songId}}" } }
       ]
@@ -105,7 +201,22 @@
             "header": [ { "key": "Content-Type", "value": "application/json" } ],
             "url": "{{baseUrl}}/users",
             "body": { "mode": "raw", "raw": "{\n  \"idUser\": \"{{userId}}\",\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"subscriptionType\": \"FREE\"\n}" }
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "try {",
+                  "  const raw = pm.request.body && pm.request.body.raw ? pm.request.body.raw : '{}';",
+                  "  const data = JSON.parse(raw);",
+                  "  if (data.idUser) pm.collectionVariables.set('userId', data.idUser);",
+                  "} catch (e) { /* ignore */ }"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "Update User",
@@ -114,7 +225,22 @@
             "header": [ { "key": "Content-Type", "value": "application/json" } ],
             "url": "{{baseUrl}}/users",
             "body": { "mode": "raw", "raw": "{\n  \"idUser\": \"{{userId}}\",\n  \"name\": \"John Doe Updated\",\n  \"email\": \"john.updated@example.com\",\n  \"subscriptionType\": \"PREMIUM\"\n}" }
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "try {",
+                  "  const raw = pm.request.body && pm.request.body.raw ? pm.request.body.raw : '{}';",
+                  "  const data = JSON.parse(raw);",
+                  "  if (data.idUser) pm.collectionVariables.set('userId', data.idUser);",
+                  "} catch (e) { /* ignore */ }"
+                ]
+              }
+            }
+          ]
         },
         { "name": "Delete User", "request": { "method": "DELETE", "url": "{{baseUrl}}/users/{{userId}}" } }
       ]
@@ -131,7 +257,24 @@
             "header": [ { "key": "Content-Type", "value": "application/json" } ],
             "url": "{{baseUrl}}/playlists",
             "body": { "mode": "raw", "raw": "{\n  \"idPlaylist\": \"{{playlistId}}\",\n  \"name\": \"Favorites\",\n  \"user\": {\n    \"idUser\": \"{{userId}}\"\n  },\n  \"songs\": [\n    { \n      \"id\": \"{{songId}}\"\n    }\n  ]\n}" }
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "try {",
+                  "  const raw = pm.request.body && pm.request.body.raw ? pm.request.body.raw : '{}';",
+                  "  const data = JSON.parse(raw);",
+                  "  if (data.idPlaylist) pm.collectionVariables.set('playlistId', data.idPlaylist);",
+                  "  if (data.user && data.user.idUser) pm.collectionVariables.set('userId', data.user.idUser);",
+                  "  if (data.songs && data.songs.length && data.songs[0].id) pm.collectionVariables.set('songId', data.songs[0].id);",
+                  "} catch (e) { /* ignore */ }"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "Update Playlist",
@@ -140,7 +283,24 @@
             "header": [ { "key": "Content-Type", "value": "application/json" } ],
             "url": "{{baseUrl}}/playlists",
             "body": { "mode": "raw", "raw": "{\n  \"idPlaylist\": \"{{playlistId}}\",\n  \"name\": \"Favorites Updated\",\n  \"user\": {\n    \"idUser\": \"{{userId}}\"\n  },\n  \"songs\": [\n    { \n      \"id\": \"{{songId}}\"\n    }\n  ]\n}" }
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "try {",
+                  "  const raw = pm.request.body && pm.request.body.raw ? pm.request.body.raw : '{}';",
+                  "  const data = JSON.parse(raw);",
+                  "  if (data.idPlaylist) pm.collectionVariables.set('playlistId', data.idPlaylist);",
+                  "  if (data.user && data.user.idUser) pm.collectionVariables.set('userId', data.user.idUser);",
+                  "  if (data.songs && data.songs.length && data.songs[0].id) pm.collectionVariables.set('songId', data.songs[0].id);",
+                  "} catch (e) { /* ignore */ }"
+                ]
+              }
+            }
+          ]
         },
         { "name": "Delete Playlist", "request": { "method": "DELETE", "url": "{{baseUrl}}/playlists/{{playlistId}}" } }
       ]
@@ -157,7 +317,24 @@
             "header": [ { "key": "Content-Type", "value": "application/json" } ],
             "url": "{{baseUrl}}/play-history",
             "body": { "mode": "raw", "raw": "{\n  \"idHistory\": \"{{historyId}}\",\n  \"user\": {\n    \"idUser\": \"{{userId}}\"\n  },\n  \"song\": {\n    \"id\": \"{{songId}}\"\n  },\n  \"playDate\": \"2025-01-01T12:00:00\"\n}" }
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "try {",
+                  "  const raw = pm.request.body && pm.request.body.raw ? pm.request.body.raw : '{}';",
+                  "  const data = JSON.parse(raw);",
+                  "  if (data.idHistory) pm.collectionVariables.set('historyId', data.idHistory);",
+                  "  if (data.user && data.user.idUser) pm.collectionVariables.set('userId', data.user.idUser);",
+                  "  if (data.song && data.song.id) pm.collectionVariables.set('songId', data.song.id);",
+                  "} catch (e) { /* ignore */ }"
+                ]
+              }
+            }
+          ]
         },
         { "name": "Delete Play History", "request": { "method": "DELETE", "url": "{{baseUrl}}/play-history/{{historyId}}" } }
       ]
