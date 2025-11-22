@@ -1,0 +1,226 @@
+{
+  "info": {
+    "_postman_id": "b1e3f5a2-9c4b-4d0c-8d1b-1c2d3e4f5a6b",
+    "name": "AppMusic API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Colección Postman para AppMusic. Incluye endpoints REST y ejemplos de cuerpos que piden los mismos datos que la UI (WebController). Usa la variable baseUrl para el host."
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "artistId", "value": "ART-001" },
+    { "key": "albumId", "value": "ALB-001" },
+    { "key": "songId", "value": "SON-001" },
+    { "key": "userId", "value": "USR-001" },
+    { "key": "playlistId", "value": "PLY-001" },
+    { "key": "historyId", "value": "HIS-001" }
+  ],
+  "item": [
+    {
+      "name": "Artists",
+      "item": [
+        {
+          "name": "List Artists",
+          "request": { "method": "GET", "url": "{{baseUrl}}/artists" }
+        },
+        {
+          "name": "Get Artist by ID",
+          "request": { "method": "GET", "url": "{{baseUrl}}/artists/{{artistId}}" }
+        },
+        {
+          "name": "Create Artist (UI fields)",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": "{{baseUrl}}/artists",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idArtist\": \"{{artistId}}\",\n  \"name\": \"Queen\",\n  \"songs\": null,\n  \"albums\": null\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Artist",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": "{{baseUrl}}/artists",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idArtist\": \"{{artistId}}\",\n  \"name\": \"Queen Updated\",\n  \"songs\": null,\n  \"albums\": null\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Artist",
+          "request": { "method": "DELETE", "url": "{{baseUrl}}/artists/{{artistId}}" }
+        }
+      ]
+    },
+    {
+      "name": "Albums",
+      "item": [
+        { "name": "List Albums", "request": { "method": "GET", "url": "{{baseUrl}}/albums" } },
+        { "name": "Get Album by ID", "request": { "method": "GET", "url": "{{baseUrl}}/albums/{{albumId}}" } },
+        {
+          "name": "Create Album (UI fields)",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": "{{baseUrl}}/albums",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{albumId}}\",\n  \"title\": \"A Night at the Opera\",\n  \"duration\": 43.0,\n  \"artist\": { \n    \"idArtist\": \"{{artistId}}\",\n    \"name\": \"Queen\",\n    \"songs\": null,\n    \"albums\": null\n  },\n  \"songs\": null\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Album",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": "{{baseUrl}}/albums",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{albumId}}\",\n  \"title\": \"A Night at the Opera (Remastered)\",\n  \"duration\": 44.5,\n  \"artist\": { \n    \"idArtist\": \"{{artistId}}\",\n    \"name\": \"Queen\",\n    \"songs\": null,\n    \"albums\": null\n  },\n  \"songs\": null\n}"
+            }
+          }
+        },
+        { "name": "Delete Album", "request": { "method": "DELETE", "url": "{{baseUrl}}/albums/{{albumId}}" } }
+      ]
+    },
+    {
+      "name": "Songs",
+      "item": [
+        { "name": "List Songs", "request": { "method": "GET", "url": "{{baseUrl}}/songs" } },
+        { "name": "Get Song by ID", "request": { "method": "GET", "url": "{{baseUrl}}/songs/{{songId}}" } },
+        {
+          "name": "Create Song (UI fields)",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": "{{baseUrl}}/songs",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{songId}}\",\n  \"title\": \"Bohemian Rhapsody\",\n  \"duration\": 5.55,\n  \"musicGenre\": \"ROCK\",\n  \"artist\": { \n    \"idArtist\": \"{{artistId}}\",\n    \"name\": \"Queen\",\n    \"songs\": null,\n    \"albums\": null\n  },\n  \"album\": {\n    \"id\": \"{{albumId}}\",\n    \"title\": \"A Night at the Opera\",\n    \"duration\": 43.0,\n    \"artist\": { \n      \"idArtist\": \"{{artistId}}\",\n      \"name\": \"Queen\",\n      \"songs\": null,\n      \"albums\": null\n    },\n    \"songs\": null\n  }\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Song",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": "{{baseUrl}}/songs",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{songId}}\",\n  \"title\": \"Bohemian Rhapsody (Live)\",\n  \"duration\": 6.1,\n  \"musicGenre\": \"ROCK\",\n  \"artist\": { \n    \"idArtist\": \"{{artistId}}\",\n    \"name\": \"Queen\",\n    \"songs\": null,\n    \"albums\": null\n  },\n  \"album\": {\n    \"id\": \"{{albumId}}\",\n    \"title\": \"A Night at the Opera\",\n    \"duration\": 43.0,\n    \"artist\": { \n      \"idArtist\": \"{{artistId}}\",\n      \"name\": \"Queen\",\n      \"songs\": null,\n      \"albums\": null\n    },\n    \"songs\": null\n  }\n}"
+            }
+          }
+        },
+        { "name": "Delete Song", "request": { "method": "DELETE", "url": "{{baseUrl}}/songs/{{songId}}" } }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        { "name": "List Users", "request": { "method": "GET", "url": "{{baseUrl}}/users" } },
+        { "name": "Get User by ID", "request": { "method": "GET", "url": "{{baseUrl}}/users/{{userId}}" } },
+        {
+          "name": "Create User (UI fields)",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": "{{baseUrl}}/users",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idUser\": \"{{userId}}\",\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"subscriptionType\": \"FREE\",\n  \"playlists\": null\n}"
+            }
+          }
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": "{{baseUrl}}/users",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idUser\": \"{{userId}}\",\n  \"name\": \"John Doe Updated\",\n  \"email\": \"john.updated@example.com\",\n  \"subscriptionType\": \"PREMIUM\",\n  \"playlists\": null\n}"
+            }
+          }
+        },
+        { "name": "Delete User", "request": { "method": "DELETE", "url": "{{baseUrl}}/users/{{userId}}" } }
+      ]
+    },
+    {
+      "name": "Playlists",
+      "item": [
+        { "name": "List Playlists", "request": { "method": "GET", "url": "{{baseUrl}}/playlists" } },
+        { "name": "Get Playlist by ID", "request": { "method": "GET", "url": "{{baseUrl}}/playlists/{{playlistId}}" } },
+        {
+          "name": "Create Playlist (UI fields)",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": "{{baseUrl}}/playlists",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idPlaylist\": \"{{playlistId}}\",\n  \"name\": \"Favorites\",\n  \"user\": {\n    \"idUser\": \"{{userId}}\",\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"subscriptionType\": \"FREE\",\n    \"playlists\": null\n  },\n  \"songs\": [\n    { \n      \"id\": \"{{songId}}\",\n      \"title\": \"Bohemian Rhapsody\",\n      \"duration\": 5.55,\n      \"musicGenre\": \"ROCK\",\n      \"artist\": { \n        \"idArtist\": \"{{artistId}}\",\n        \"name\": \"Queen\",\n        \"songs\": null,\n        \"albums\": null\n      },\n      \"album\": {\n        \"id\": \"{{albumId}}\",\n        \"title\": \"A Night at the Opera\",\n        \"duration\": 43.0,\n        \"artist\": { \n          \"idArtist\": \"{{artistId}}\",\n          \"name\": \"Queen\",\n          \"songs\": null,\n          \"albums\": null\n        },\n        \"songs\": null\n      }\n    }\n  ]\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Playlist",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": "{{baseUrl}}/playlists",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idPlaylist\": \"{{playlistId}}\",\n  \"name\": \"Favorites Updated\",\n  \"user\": null,\n  \"songs\": null\n}"
+            }
+          }
+        },
+        { "name": "Delete Playlist", "request": { "method": "DELETE", "url": "{{baseUrl}}/playlists/{{playlistId}}" } }
+      ]
+    },
+    {
+      "name": "Play History",
+      "item": [
+        { "name": "List Play History", "request": { "method": "GET", "url": "{{baseUrl}}/play-history" } },
+        { "name": "Get Play History by ID", "request": { "method": "GET", "url": "{{baseUrl}}/play-history/{{historyId}}" } },
+        {
+          "name": "Create Play History (UI-like fields)",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": "{{baseUrl}}/play-history",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idHistory\": \"{{historyId}}\",\n  \"user\": {\n    \"idUser\": \"{{userId}}\",\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"subscriptionType\": \"FREE\",\n    \"playlists\": null\n  },\n  \"song\": {\n    \"id\": \"{{songId}}\",\n    \"title\": \"Bohemian Rhapsody\",\n    \"duration\": 5.55,\n    \"musicGenre\": \"ROCK\",\n    \"artist\": { \n      \"idArtist\": \"{{artistId}}\",\n      \"name\": \"Queen\",\n      \"songs\": null,\n      \"albums\": null\n    },\n    \"album\": {\n      \"id\": \"{{albumId}}\",\n      \"title\": \"A Night at the Opera\",\n      \"duration\": 43.0,\n      \"artist\": { \n        \"idArtist\": \"{{artistId}}\",\n        \"name\": \"Queen\",\n        \"songs\": null,\n        \"albums\": null\n      },\n      \"songs\": null\n    }\n  },\n  \"playDate\": \"2025-01-01T12:00:00\"\n}"
+            }
+          }
+        },
+        { "name": "Delete Play History", "request": { "method": "DELETE", "url": "{{baseUrl}}/play-history/{{historyId}}" } }
+      ]
+    },
+    {
+      "name": "Multimedia Contents (Read-only)",
+      "item": [
+        { "name": "List Contents", "request": { "method": "GET", "url": "{{baseUrl}}/contents" } },
+        { "name": "Get Content by ID", "request": { "method": "GET", "url": "{{baseUrl}}/contents/{{songId}}" } }
+      ]
+    },
+    {
+      "name": "UI Endpoints (formularios)",
+      "item": [
+        { "name": "UI Home", "request": { "method": "GET", "url": "{{baseUrl}}/ui" } },
+        { "name": "UI Artists", "request": { "method": "GET", "url": "{{baseUrl}}/ui/artists" } },
+        { "name": "UI Albums", "request": { "method": "GET", "url": "{{baseUrl}}/ui/albums" } },
+        { "name": "UI Songs", "request": { "method": "GET", "url": "{{baseUrl}}/ui/songs" } },
+        { "name": "UI Users", "request": { "method": "GET", "url": "{{baseUrl}}/ui/users" } },
+        { "name": "UI Playlists", "request": { "method": "GET", "url": "{{baseUrl}}/ui/playlists" } }
+      ]
+    }
+  ]
+}
