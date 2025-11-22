@@ -340,6 +340,38 @@
       ]
     },
     {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "Reporte de Pagos (Tabla)",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Accept", "value": "application/json" } ],
+            "url": "{{baseUrl}}/payments/report",
+            "description": "Reporte de pagos por fecha y tipo de suscripción. Solo se muestran PREMIUM y FAMILY.\n\n| Fecha | FAMILY | PREMIUM | Total |\n|---|---:|---:|---:|\n| 2025-11-12 | 1,000,000 | 3,000,000 | 4,000,000 |\n| 2025-11-13 | 0 | 5,000,000 | 5,000,000 |\n| 2025-11-14 | 3,000,000 | 6,000,000 | 9,000,000 |"
+          },
+          "response": [
+            {
+              "name": "Ejemplo - Lista de días",
+              "originalRequest": { "method": "GET", "url": "{{baseUrl}}/payments/report" },
+              "status": "OK",
+              "code": 200,
+              "header": [ { "key": "Content-Type", "value": "application/json" } ],
+              "body": "[\n  {\n    \"fecha\": \"2025-11-12\",\n    \"subscripciones\": [\n      { \"tipo_sub\": \"FAMILY\", \"valor\": 1000000 },\n      { \"tipo_sub\": \"PREMIUM\", \"valor\": 3000000 }\n    ],\n    \"total_tipo\": 4000000\n  },\n  {\n    \"fecha\": \"2025-11-13\",\n    \"subscripciones\": [\n      { \"tipo_sub\": \"FAMILY\", \"valor\": 0 },\n      { \"tipo_sub\": \"PREMIUM\", \"valor\": 5000000 }\n    ],\n    \"total_tipo\": 5000000\n  },\n  {\n    \"fecha\": \"2025-11-14\",\n    \"subscripciones\": [\n      { \"tipo_sub\": \"FAMILY\", \"valor\": 3000000 },\n      { \"tipo_sub\": \"PREMIUM\", \"valor\": 6000000 }\n    ],\n    \"total_tipo\": 9000000\n  }\n]"
+            },
+            {
+              "name": "Ejemplo - Rango de fechas",
+              "originalRequest": { "method": "GET", "url": "{{baseUrl}}/payments/report?from=2025-11-12&to=2025-11-14" },
+              "status": "OK",
+              "code": 200,
+              "header": [ { "key": "Content-Type", "value": "application/json" } ],
+              "body": "{\n  \"fecha_inicial\": \"2025-11-12\",\n  \"fecha_final\": \"2025-11-14\",\n  \"dias\": [\n    {\n      \"fecha\": \"2025-11-12\",\n      \"subscripciones\": [\n        { \"tipo_sub\": \"FAMILY\", \"valor\": 1000000 },\n        { \"tipo_sub\": \"PREMIUM\", \"valor\": 3000000 }\n      ],\n      \"total_tipo\": 4000000\n    },\n    {\n      \"fecha\": \"2025-11-13\",\n      \"subscripciones\": [\n        { \"tipo_sub\": \"FAMILY\", \"valor\": 0 },\n        { \"tipo_sub\": \"PREMIUM\", \"valor\": 5000000 }\n      ],\n      \"total_tipo\": 5000000\n    },\n    {\n      \"fecha\": \"2025-11-14\",\n      \"subscripciones\": [\n        { \"tipo_sub\": \"FAMILY\", \"valor\": 3000000 },\n        { \"tipo_sub\": \"PREMIUM\", \"valor\": 6000000 }\n      ],\n      \"total_tipo\": 9000000\n    }\n  ]\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "UI Endpoints (formularios)",
       "item": [
         { "name": "UI Home", "request": { "method": "GET", "url": "{{baseUrl}}/ui" } },
